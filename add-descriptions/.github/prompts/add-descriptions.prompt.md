@@ -11,3 +11,5 @@ When finished, report:
 2. CSV rows that did not match any object in the model.
 3. CSV rows skipped because the description was blank.
 4. Columns and measures in the model that have no CSV row.
+
+Report only those four items, as a short list. Do not add other checks, explanations, or commentary.
