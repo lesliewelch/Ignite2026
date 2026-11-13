@@ -10,262 +10,121 @@
       "nodes": [
         {
           "location": {
-            "x": 0,
-            "y": 472
-          },
-          "nodeIndex": "Inventory",
-          "size": {
-            "height": 392,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 250,
-            "y": 472
-          },
-          "nodeIndex": "Reviews",
-          "size": {
-            "height": 392,
-            "width": 234
-          },
-          "zIndex": 2
-        },
-        {
-          "location": {
-            "x": 500,
-            "y": 472
-          },
-          "nodeIndex": "Sales",
-          "size": {
-            "height": 392,
-            "width": 234
-          },
-          "zIndex": 3
-        },
-        {
-          "location": {
-            "x": 750,
-            "y": 0
-          },
-          "nodeIndex": "Date",
-          "size": {
-            "height": 416,
-            "width": 234
-          },
-          "zIndex": 4
-        },
-        {
-          "location": {
-            "x": 1000,
-            "y": 0
-          },
-          "nodeIndex": "Promotion",
-          "size": {
-            "height": 416,
-            "width": 234
-          },
-          "zIndex": 5
-        },
-        {
-          "location": {
-            "x": 1250,
-            "y": 0
-          },
-          "nodeIndex": "Set",
-          "size": {
-            "height": 416,
-            "width": 234
-          },
-          "zIndex": 6
-        },
-        {
-          "location": {
-            "x": 1500,
-            "y": 0
-          },
-          "nodeIndex": "Store",
-          "size": {
-            "height": 416,
-            "width": 234
-          },
-          "zIndex": 7
-        }
-      ],
-      "name": "All Tables",
-      "zoomValue": 80,
-      "pinKeyFieldsToTop": false,
-      "showExtraHeaderInfo": false,
-      "hideKeyFieldsWhenCollapsed": false,
-      "tablesLocked": false
-    },
-    {
-      "ordinal": 1,
-      "scrollPosition": {
-        "x": 0,
-        "y": 0
-      },
-      "nodes": [
-        {
-          "location": {
-            "x": 0,
-            "y": 472
-          },
-          "nodeIndex": "Sales",
-          "size": {
-            "height": 392,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 250,
-            "y": 0
-          },
-          "nodeIndex": "Date",
-          "size": {
-            "height": 416,
-            "width": 234
-          },
-          "zIndex": 2
-        },
-        {
-          "location": {
-            "x": 500,
-            "y": 0
-          },
-          "nodeIndex": "Promotion",
-          "size": {
-            "height": 416,
-            "width": 234
-          },
-          "zIndex": 3
-        },
-        {
-          "location": {
-            "x": 750,
-            "y": 0
-          },
-          "nodeIndex": "Set",
-          "size": {
-            "height": 416,
-            "width": 234
-          },
-          "zIndex": 4
-        }
-      ],
-      "name": "Sales Overview",
-      "zoomValue": 80,
-      "pinKeyFieldsToTop": false,
-      "showExtraHeaderInfo": false,
-      "hideKeyFieldsWhenCollapsed": false,
-      "tablesLocked": false
-    },
-    {
-      "ordinal": 2,
-      "scrollPosition": {
-        "x": 0,
-        "y": 0
-      },
-      "nodes": [
-        {
-          "location": {
-            "x": 0,
-            "y": 280
-          },
-          "nodeIndex": "Inventory",
-          "size": {
-            "height": 392,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 250,
-            "y": 280
-          },
-          "nodeIndex": "Sales",
-          "size": {
-            "height": 392,
-            "width": 234
-          },
-          "zIndex": 2
-        },
-        {
-          "location": {
-            "x": 500,
-            "y": 0
+            "x": 333.92504140818244,
+            "y": 712.06513079737692
           },
           "nodeIndex": "Date",
           "size": {
             "height": 224,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 0
         },
         {
           "location": {
-            "x": 750,
-            "y": 0
+            "x": 984.55080310989979,
+            "y": 581.24033764375986
           },
-          "nodeIndex": "Store",
+          "nodeIndex": "Designer",
           "size": {
-            "height": 224,
+            "height": 176,
             "width": 234
           },
-          "zIndex": 4
-        }
-      ],
-      "name": "Stores & Channels",
-      "zoomValue": 80,
-      "pinKeyFieldsToTop": false,
-      "showExtraHeaderInfo": false,
-      "hideKeyFieldsWhenCollapsed": false,
-      "tablesLocked": false
-    },
-    {
-      "ordinal": 3,
-      "scrollPosition": {
-        "x": 0,
-        "y": 0
-      },
-      "nodes": [
+          "zIndex": 0
+        },
         {
           "location": {
-            "x": 0,
-            "y": 472
+            "x": 750.55080310989979,
+            "y": 230.45756432012467
+          },
+          "nodeIndex": "Inventory",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 459.1531091259269
+          },
+          "nodeIndex": "Promotion",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 512.77184612084852,
+            "y": 992.48067528751972
           },
           "nodeIndex": "Reviews",
           "size": {
             "height": 296,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 0
         },
         {
           "location": {
-            "x": 250,
-            "y": 0
+            "x": 336.253980435281,
+            "y": 230.45410461008669
+          },
+          "nodeIndex": "Sales",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 622.99337395264956,
+            "y": 624.22447063701043
           },
           "nodeIndex": "Set",
           "size": {
-            "height": 416,
+            "height": 300,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 566.5868284768859,
+            "y": -50
+          },
+          "nodeIndex": "Store",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1268.5508031098998,
+            "y": 593.24033764375986
+          },
+          "nodeIndex": "Theme",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
-      "name": "Set Catalog & Reviews",
-      "zoomValue": 80,
+      "name": "All tables",
+      "zoomValue": 100,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "All Tables",
-  "defaultDiagram": "All Tables"
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
 }

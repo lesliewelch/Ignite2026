@@ -1,44 +1,51 @@
 relationship 'Sales Order Date'
 	fromColumn: Sales.OrderDate
 	toColumn: Date.Date
-	crossFilteringBehavior: oneDirection
 
 relationship 'Sales Set'
 	fromColumn: Sales.SetKey
-	toColumn: 'Set'.SetKey
-	crossFilteringBehavior: oneDirection
+	toColumn: Set.SetKey
 
 relationship 'Sales Store'
 	fromColumn: Sales.StoreKey
 	toColumn: Store.StoreKey
-	crossFilteringBehavior: oneDirection
 
 relationship 'Sales Promotion'
 	fromColumn: Sales.PromotionKey
 	toColumn: Promotion.PromotionKey
-	crossFilteringBehavior: oneDirection
 
 relationship 'Reviews Review Date'
 	fromColumn: Reviews.ReviewDate
 	toColumn: Date.Date
-	crossFilteringBehavior: oneDirection
 
 relationship 'Reviews Set'
 	fromColumn: Reviews.SetKey
-	toColumn: 'Set'.SetKey
-	crossFilteringBehavior: oneDirection
+	toColumn: Set.SetKey
 
 relationship 'Inventory Snapshot Date'
 	fromColumn: Inventory.SnapshotDate
 	toColumn: Date.Date
-	crossFilteringBehavior: oneDirection
 
 relationship 'Inventory Set'
 	fromColumn: Inventory.SetKey
-	toColumn: 'Set'.SetKey
-	crossFilteringBehavior: oneDirection
+	toColumn: Set.SetKey
 
 relationship 'Inventory Store'
 	fromColumn: Inventory.StoreKey
 	toColumn: Store.StoreKey
-	crossFilteringBehavior: oneDirection
+
+relationship 49bc7b65-89d7-4202-8ea5-3a9cc71d521e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Promotion.StartDate
+	toColumn: LocalDateTable_91f4fe93-2cde-4b8e-8577-e76aa52e454e.Date
+
+relationship 542f4584-fb4d-4315-95e1-6fdea427be5b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Promotion.EndDate
+	toColumn: LocalDateTable_04832d9f-94a0-4f69-adff-ee3192b9392f.Date
+
+relationship 68eb634d-2a5c-42c9-8ffb-1777f31ab3ff
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.Date
+	toColumn: LocalDateTable_56be890f-07db-49f9-bcd8-83a22358e7a7.Date
+

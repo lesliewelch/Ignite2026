@@ -1,39 +1,44 @@
 /// Six LEGO themes grouped as licensed or in-house properties.
 table Theme
+	lineageTag: f05895ad-4129-4821-80b1-5dd04f43b7ad
 
 	/// Unique identifier for a theme.
 	column ThemeKey
 		dataType: int64
 		isHidden
+		lineageTag: ad4aa046-2b39-4574-b799-8e63a164a8a6
 		summarizeBy: none
 		sourceColumn: ThemeKey
 
 	/// Theme name.
 	column Theme
 		dataType: string
+		lineageTag: dc6e2fb8-0d3a-41bb-aa5d-ff41d05991aa
 		sourceColumn: Theme
 
 	/// Licensed or in-house theme grouping.
 	column ThemeGroup
 		dataType: string
+		lineageTag: 5461f9ea-2084-4398-bec2-e8ad9a9f5f07
 		sourceColumn: ThemeGroup
 
 	partition Theme = m
 		mode: import
 		source =
-			let
-				Source = #table(
-					type table [ThemeKey = Int64.Type,
-				Theme = text,
-				ThemeGroup = text],
-					{
-				{1, "Star Wars", "Licensed"},
-				{2, "Harry Potter", "Licensed"},
-				{3, "Technic", "In-house"},
-				{4, "City", "In-house"},
-				{5, "Ideas", "In-house"},
-				{6, "Friends", "In-house"}
-					}
-				)
-			in
-					Source
+				let
+					Source = #table(
+						type table [ThemeKey = Int64.Type,
+					Theme = text,
+					ThemeGroup = text],
+						{
+					{1, "Star Wars", "Licensed"},
+					{2, "Harry Potter", "Licensed"},
+					{3, "Technic", "In-house"},
+					{4, "City", "In-house"},
+					{5, "Ideas", "In-house"},
+					{6, "Friends", "In-house"}
+						}
+					)
+				in
+						Source
+

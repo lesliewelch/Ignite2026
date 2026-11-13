@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "f08c8aa69afe908bb9c8",
   "position": {
     "x": 32,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Set.SetNumber",
-              "nativeQueryRef": "SetNumber"
+              "nativeQueryRef": "SetNumber",
+              "active": true
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "Set.SetName",
-              "nativeQueryRef": "SetName"
+              "nativeQueryRef": "SetName",
+              "active": false
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "Set.DesignerName",
-              "nativeQueryRef": "DesignerName"
+              "nativeQueryRef": "DesignerName",
+              "active": false
             },
             {
               "field": {
@@ -69,7 +72,8 @@
                 }
               },
               "queryRef": "Set.Pieces",
-              "nativeQueryRef": "Pieces"
+              "nativeQueryRef": "Pieces",
+              "active": false
             },
             {
               "field": {
@@ -83,7 +87,8 @@
                 }
               },
               "queryRef": "Set.RetailPrice",
-              "nativeQueryRef": "RetailPrice"
+              "nativeQueryRef": "RetailPrice",
+              "active": false
             }
           ]
         },
@@ -120,6 +125,28 @@
           ]
         }
       }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "visualContainerObjects": {
       "general": [
@@ -325,28 +352,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'Left'"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "objects": {
-      "columnHeaders": [
-        {
-          "properties": {
-            "autoSizeColumnWidth": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "columnAdjustment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'growToFit'"
                 }
               }
             }

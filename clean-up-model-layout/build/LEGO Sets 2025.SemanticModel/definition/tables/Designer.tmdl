@@ -1,45 +1,51 @@
 /// Six fictional designers and studios used to attribute catalog sets.
 table Designer
+	lineageTag: c2f28774-9876-421e-a826-702faf4801c3
 
 	/// Unique identifier for a designer.
 	column DesignerKey
 		dataType: int64
 		isHidden
+		lineageTag: 53d9145d-1a0b-48eb-9e5a-021a324bb308
 		summarizeBy: none
 		sourceColumn: DesignerKey
 
 	/// Fictional designer name.
 	column DesignerName
 		dataType: string
+		lineageTag: 367867ef-d579-4bee-9d94-10565b98b305
 		sourceColumn: DesignerName
 
 	/// Fictional design studio.
 	column Studio
 		dataType: string
+		lineageTag: 507974ef-bcbc-444b-9ede-2ccb9f81aaa2
 		sourceColumn: Studio
 
 	/// Primary design specialty.
 	column Specialty
 		dataType: string
+		lineageTag: fc91cb1e-3996-40c5-ac26-1058076369f5
 		sourceColumn: Specialty
 
 	partition Designer = m
 		mode: import
 		source =
-			let
-				Source = #table(
-					type table [DesignerKey = Int64.Type,
-				DesignerName = text,
-				Studio = text,
-				Specialty = text],
-					{
-				{1, "Avery Stone", "North Brick Studio", "Vehicles"},
-				{2, "Morgan Reed", "North Brick Studio", "Fantasy"},
-				{3, "Jamie Park", "Bright Build Lab", "Architecture"},
-				{4, "Riley Chen", "Bright Build Lab", "Mechanisms"},
-				{5, "Casey Brooks", "Independent", "Collectibles"},
-				{6, "Taylor Quinn", "Independent", "Play features"}
-					}
-				)
-			in
-					Source
+				let
+					Source = #table(
+						type table [DesignerKey = Int64.Type,
+					DesignerName = text,
+					Studio = text,
+					Specialty = text],
+						{
+					{1, "Avery Stone", "North Brick Studio", "Vehicles"},
+					{2, "Morgan Reed", "North Brick Studio", "Fantasy"},
+					{3, "Jamie Park", "Bright Build Lab", "Architecture"},
+					{4, "Riley Chen", "Bright Build Lab", "Mechanisms"},
+					{5, "Casey Brooks", "Independent", "Collectibles"},
+					{6, "Taylor Quinn", "Independent", "Play features"}
+						}
+					)
+				in
+						Source
+
