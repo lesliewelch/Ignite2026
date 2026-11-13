@@ -1,0 +1,69 @@
+table Promotion
+	lineageTag: 5ea41c2d-88db-4268-bf65-54934a707a29
+
+	column PromotionKey
+		dataType: int64
+		isHidden
+		lineageTag: fce2fa13-762d-4189-a19a-d320c554b9c1
+		summarizeBy: none
+		sourceColumn: PromotionKey
+
+	column PromotionName
+		dataType: string
+		lineageTag: 5526f2d3-6439-44bf-9e16-b6c40e770439
+		summarizeBy: none
+		sourceColumn: PromotionName
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromotionType
+		dataType: string
+		lineageTag: 678a9c8f-18cf-4777-afb0-2f9fc6012b6d
+		summarizeBy: none
+		sourceColumn: PromotionType
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 26212138-87d9-45fb-86b0-45619b357374
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column EndDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 565f6f08-6f56-4b6b-aedd-f24e30ee3835
+		summarizeBy: none
+		sourceColumn: EndDate
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Promotion = m
+		mode: import
+		source =
+				let
+					Source = #table(
+						type table [PromotionKey = Int64.Type,
+					PromotionName = text,
+					PromotionType = text,
+					StartDate = nullable date,
+					EndDate = nullable date],
+						{
+					{0, "No Promotion", "None", null, null},
+					{1, "Winter Build Days", "Seasonal", #date(2025, 1, 1), #date(2025, 3, 31)},
+					{2, "Spring Brick Festival", "Seasonal", #date(2025, 4, 1), #date(2025, 6, 30)},
+					{3, "Summer Set Launch", "Launch", #date(2025, 7, 1), #date(2025, 9, 30)},
+					{4, "Holiday Double Points", "Loyalty", #date(2025, 10, 1), #date(2025, 12, 31)}
+						}
+					)
+				in
+						Source
+

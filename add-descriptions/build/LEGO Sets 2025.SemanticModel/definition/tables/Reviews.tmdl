@@ -1,0 +1,116 @@
+table Reviews
+	lineageTag: c34c53d8-f36b-40b4-b5e8-b491e122338e
+
+	measure 'Avg Rating' = AVERAGE(Reviews[Rating])
+		formatString: 0.0
+		lineageTag: a7bb27be-bd16-4573-ae9d-31ed9036928f
+
+	measure 'Review Count' = COUNTROWS(Reviews)
+		formatString: #,##0
+		lineageTag: f852d275-09a9-4dfc-bbac-a95754ad01f8
+
+	measure 'Avg Build Hours' = AVERAGE(Reviews[BuildHours])
+		formatString: 0.0
+		lineageTag: 94f6320b-1feb-45d2-8828-c9e26d56fff4
+
+	column ReviewKey
+		dataType: int64
+		isHidden
+		lineageTag: 4a28d323-77d7-4078-96c0-5a47ca2dfff0
+		summarizeBy: none
+		sourceColumn: ReviewKey
+
+	column ReviewDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9f0d79f8-0831-4e2c-a690-598f6bd5c7b8
+		summarizeBy: none
+		sourceColumn: ReviewDate
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column SetKey
+		dataType: int64
+		isHidden
+		lineageTag: 8b5c3b8e-cc1c-4941-9517-f8e8855dd6fd
+		summarizeBy: none
+		sourceColumn: SetKey
+
+	column Rating
+		dataType: int64
+		isHidden
+		lineageTag: c78d6894-0945-4553-a8dd-e471cfd0a811
+		summarizeBy: average
+		sourceColumn: Rating
+
+	column BuildHours
+		dataType: double
+		isHidden
+		lineageTag: 1e6c1115-1a8e-42bc-95b7-3c954d0d22f5
+		summarizeBy: sum
+		sourceColumn: BuildHours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AgeGroup
+		dataType: string
+		lineageTag: fd3eba31-80da-48df-8b24-4a9e120abf68
+		sourceColumn: AgeGroup
+
+	partition Reviews = m
+		mode: import
+		source =
+				let
+					Source = #table(
+						type table [ReviewKey = Int64.Type,
+					ReviewDate = date,
+					SetKey = Int64.Type,
+					Rating = Int64.Type,
+					BuildHours = number,
+					AgeGroup = text],
+						{
+					{1, #date(2025, 1, 1), 1, 4, 5, "Adult"},
+					{2, #date(2025, 3, 10), 2, 3, 7.5, "Teen"},
+					{3, #date(2025, 5, 17), 3, 5, 11.3, "Child"},
+					{4, #date(2025, 7, 24), 4, 4, 7, "Adult"},
+					{5, #date(2025, 9, 29), 5, 3, 13.7, "Teen"},
+					{6, #date(2025, 12, 6), 6, 5, 5.5, "Child"},
+					{7, #date(2025, 2, 7), 7, 4, 8.2, "Adult"},
+					{8, #date(2025, 4, 16), 8, 3, 9.8, "Teen"},
+					{9, #date(2025, 6, 23), 9, 5, 16.1, "Child"},
+					{10, #date(2025, 8, 30), 10, 4, 5.6, "Adult"},
+					{11, #date(2025, 11, 5), 11, 3, 16.8, "Teen"},
+					{12, #date(2025, 1, 7), 12, 5, 4, "Child"},
+					{13, #date(2025, 3, 16), 13, 4, 12.4, "Adult"},
+					{14, #date(2025, 5, 23), 14, 3, 7.1, "Teen"},
+					{15, #date(2025, 7, 30), 15, 5, 9.2, "Child"},
+					{16, #date(2025, 10, 6), 16, 4, 10, "Adult"},
+					{17, #date(2025, 12, 12), 17, 3, 9.8, "Teen"},
+					{18, #date(2025, 2, 13), 18, 5, 5.6, "Child"},
+					{19, #date(2025, 4, 22), 1, 4, 6, "Adult"},
+					{20, #date(2025, 6, 29), 2, 3, 8.5, "Teen"},
+					{21, #date(2025, 9, 5), 3, 5, 10.6, "Child"},
+					{22, #date(2025, 11, 12), 4, 4, 6.3, "Adult"},
+					{23, #date(2025, 1, 13), 5, 3, 13, "Teen"},
+					{24, #date(2025, 3, 22), 6, 5, 6.5, "Child"},
+					{25, #date(2025, 5, 29), 7, 4, 9.2, "Adult"},
+					{26, #date(2025, 8, 5), 8, 3, 9.1, "Teen"},
+					{27, #date(2025, 10, 12), 9, 5, 15.4, "Child"},
+					{28, #date(2025, 12, 19), 10, 4, 4.9, "Adult"},
+					{29, #date(2025, 2, 19), 11, 3, 17.9, "Teen"},
+					{30, #date(2025, 4, 28), 12, 5, 5, "Child"},
+					{31, #date(2025, 7, 5), 13, 4, 11.7, "Adult"},
+					{32, #date(2025, 9, 11), 14, 3, 6.4, "Teen"},
+					{33, #date(2025, 11, 18), 15, 5, 8.5, "Child"},
+					{34, #date(2025, 1, 20), 16, 4, 11.1, "Adult"},
+					{35, #date(2025, 3, 28), 17, 3, 10.8, "Teen"},
+					{36, #date(2025, 6, 4), 18, 5, 4.9, "Child"}
+						}
+					)
+				in
+						Source
+

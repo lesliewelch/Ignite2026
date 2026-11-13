@@ -1,6 +1,6 @@
 # Copilot instructions for this folder
 
-This folder contains a Power BI Project (PBIP). The semantic model is stored as TMDL under `LEGO Sets 2025.SemanticModel/definition/`.
+This folder contains a Power BI Project (PBIP). The semantic model is stored as TMDL under `build/LEGO Sets 2025.SemanticModel/definition/`.
 
 ## Source of descriptions
 - Business descriptions live in `descriptions/model-descriptions.csv`.

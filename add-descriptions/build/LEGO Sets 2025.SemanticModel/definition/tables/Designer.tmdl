@@ -1,0 +1,46 @@
+table Designer
+	lineageTag: 3d92aac8-55ae-48e0-a78b-9c961fb9fc84
+
+	column DesignerKey
+		dataType: int64
+		isHidden
+		lineageTag: a905c75d-3137-4b7a-8633-633fdc27b687
+		summarizeBy: none
+		sourceColumn: DesignerKey
+
+	column DesignerName
+		dataType: string
+		lineageTag: ac062b96-fa46-4c92-98b5-0415db1d002c
+		sourceColumn: DesignerName
+
+	column Studio
+		dataType: string
+		lineageTag: 8ca9e799-0d4c-4996-b4b9-688dc1204009
+		sourceColumn: Studio
+
+	column Specialty
+		dataType: string
+		lineageTag: 38798a62-2823-4ab8-8994-8c95c78c8257
+		sourceColumn: Specialty
+
+	partition Designer = m
+		mode: import
+		source =
+				let
+					Source = #table(
+						type table [DesignerKey = Int64.Type,
+					DesignerName = text,
+					Studio = text,
+					Specialty = text],
+						{
+					{1, "Avery Stone", "North Brick Studio", "Vehicles"},
+					{2, "Morgan Reed", "North Brick Studio", "Fantasy"},
+					{3, "Jamie Park", "Bright Build Lab", "Architecture"},
+					{4, "Riley Chen", "Bright Build Lab", "Mechanisms"},
+					{5, "Casey Brooks", "Independent", "Collectibles"},
+					{6, "Taylor Quinn", "Independent", "Play features"}
+						}
+					)
+				in
+						Source
+

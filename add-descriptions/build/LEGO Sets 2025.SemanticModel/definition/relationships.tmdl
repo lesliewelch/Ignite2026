@@ -1,0 +1,44 @@
+relationship 'Sales Order Date'
+	fromColumn: Sales.OrderDate
+	toColumn: Date.Date
+
+relationship 'Sales Set'
+	fromColumn: Sales.SetKey
+	toColumn: Set.SetKey
+
+relationship 'Sales Store'
+	fromColumn: Sales.StoreKey
+	toColumn: Store.StoreKey
+
+relationship 'Sales Promotion'
+	fromColumn: Sales.PromotionKey
+	toColumn: Promotion.PromotionKey
+
+relationship 'Reviews Review Date'
+	fromColumn: Reviews.ReviewDate
+	toColumn: Date.Date
+
+relationship 'Reviews Set'
+	fromColumn: Reviews.SetKey
+	toColumn: Set.SetKey
+
+relationship 'Inventory Snapshot Date'
+	fromColumn: Inventory.SnapshotDate
+	toColumn: Date.Date
+
+relationship 'Inventory Set'
+	fromColumn: Inventory.SetKey
+	toColumn: Set.SetKey
+
+relationship 'Inventory Store'
+	fromColumn: Inventory.StoreKey
+	toColumn: Store.StoreKey
+
+relationship 'Set Theme'
+	fromColumn: Set.ThemeKey
+	toColumn: Theme.ThemeKey
+
+relationship 'Set Designer'
+	fromColumn: Set.DesignerKey
+	toColumn: Designer.DesignerKey
+

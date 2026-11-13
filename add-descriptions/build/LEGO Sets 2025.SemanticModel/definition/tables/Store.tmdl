@@ -1,0 +1,58 @@
+table Store
+	lineageTag: dd265caf-43c5-48bc-aee1-d3984b44ad46
+
+	column StoreKey
+		dataType: int64
+		isHidden
+		lineageTag: a6a8b6d3-951a-4463-97a6-ccd7816851cd
+		summarizeBy: none
+		sourceColumn: StoreKey
+
+	column StoreName
+		dataType: string
+		lineageTag: 45c7feb0-42b5-47b9-b40f-f9dc91087ac4
+		sourceColumn: StoreName
+
+	column Channel
+		dataType: string
+		lineageTag: 77ef27b5-2a24-4b5c-873e-6ed48424bdbb
+		sourceColumn: Channel
+
+	column City
+		dataType: string
+		lineageTag: c85e96b9-7079-4a3e-b51e-24e9c9f8cbff
+		sourceColumn: City
+
+	column Country
+		dataType: string
+		lineageTag: 88c53def-6df0-4bee-98ae-a78ab3c67d7b
+		sourceColumn: Country
+
+	column Region
+		dataType: string
+		lineageTag: bbd7d243-63f1-4206-bc8b-f6ea8bdb39c7
+		sourceColumn: Region
+
+	partition Store = m
+		mode: import
+		source =
+				let
+					Source = #table(
+						type table [StoreKey = Int64.Type,
+					StoreName = text,
+					Channel = text,
+					City = text,
+					Country = text,
+					Region = text],
+						{
+					{1, "Copenhagen Flagship", "Brand Store", "Copenhagen", "Denmark", "Europe"},
+					{2, "New York Fifth Avenue", "Brand Store", "New York", "United States", "North America"},
+					{3, "LEGO.com", "Online", "Billund", "Denmark", "Europe"},
+					{4, "Brick House Retail", "Retail Partner", "Seattle", "United States", "North America"},
+					{5, "Toy Galaxy", "Retail Partner", "Melbourne", "Australia", "Asia Pacific"},
+					{6, "Tokyo Brand Store", "Brand Store", "Tokyo", "Japan", "Asia Pacific"}
+						}
+					)
+				in
+						Source
+

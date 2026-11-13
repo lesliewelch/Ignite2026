@@ -4,7 +4,7 @@ description: Apply business descriptions from CSV to the Power BI semantic model
 
 Read `descriptions/model-descriptions.csv`. Each row has: table, object_type (table, column, or measure), object_name, description.
 
-For each row, find the matching object in the TMDL files under `LEGO Sets 2025.SemanticModel/definition/tables` and set its `///` description to the CSV text, following the repo instructions.
+For each row, find the matching object in the TMDL files under `build/LEGO Sets 2025.SemanticModel/definition/tables` and set its `///` description to the CSV text, following the repo instructions.
 
 When finished, report:
 1. How many objects you updated, by table.

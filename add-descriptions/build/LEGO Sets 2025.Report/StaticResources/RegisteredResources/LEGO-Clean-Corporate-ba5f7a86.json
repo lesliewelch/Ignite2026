@@ -1,0 +1,63 @@
+{
+  "name": "LEGO-Clean-Corporate-ba5f7a86.json",
+  "dataColors": [
+    "#006CB7",
+    "#4A5B6C",
+    "#B7791F",
+    "#B23A3A",
+    "#247A58",
+    "#3A7D8C",
+    "#6D5B7B",
+    "#9A6B3F"
+  ],
+  "good": "#247A58",
+  "neutral": "#B7791F",
+  "bad": "#B23A3A",
+  "foreground": "#1C2833",
+  "background": "#FFFFFF",
+  "tableAccent": "#006CB7",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 22,
+      "color": "#1C2833"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#1C2833"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 10,
+      "color": "#4A5B6C"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 30,
+      "color": "#1C2833"
+    }
+  },
+  "visualStyles": {
+    "tableEx": {
+      "*": {
+        "columnHeaders": [
+          {
+            "autoSizeColumnWidth": true,
+            "columnAdjustment": "growToFit"
+          }
+        ]
+      }
+    },
+    "pivotTable": {
+      "*": {
+        "columnHeaders": [
+          {
+            "autoSizeColumnWidth": true,
+            "columnAdjustment": "growToFit"
+          }
+        ]
+      }
+    }
+  }
+}

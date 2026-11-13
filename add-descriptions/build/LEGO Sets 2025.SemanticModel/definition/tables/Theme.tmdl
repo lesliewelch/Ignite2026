@@ -1,0 +1,40 @@
+table Theme
+	lineageTag: 6f09fcaf-0fb4-4a8e-964f-4477c631039a
+
+	column ThemeKey
+		dataType: int64
+		isHidden
+		lineageTag: 2485fdc1-6d81-4c81-b251-8c9a7f78ab70
+		summarizeBy: none
+		sourceColumn: ThemeKey
+
+	column Theme
+		dataType: string
+		lineageTag: bc97c56d-ed4a-4436-a1bd-0bae098c7271
+		sourceColumn: Theme
+
+	column ThemeGroup
+		dataType: string
+		lineageTag: cbdddd1f-6fdf-4d38-90b0-38adf73fb717
+		sourceColumn: ThemeGroup
+
+	partition Theme = m
+		mode: import
+		source =
+				let
+					Source = #table(
+						type table [ThemeKey = Int64.Type,
+					Theme = text,
+					ThemeGroup = text],
+						{
+					{1, "Star Wars", "Licensed"},
+					{2, "Harry Potter", "Licensed"},
+					{3, "Technic", "In-house"},
+					{4, "City", "In-house"},
+					{5, "Ideas", "In-house"},
+					{6, "Friends", "In-house"}
+						}
+					)
+				in
+						Source
+
