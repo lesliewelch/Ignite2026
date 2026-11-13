@@ -1,0 +1,21 @@
+{
+  "name": "lego-sets-2025-pbip-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Deterministic local Power BI PBIP demo project",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "scripts": {
+    "build": "node ./tools/build-report.mjs",
+    "validate": "powerbi-report-author validate \"./build/LEGO Sets 2025.Report\"",
+    "check": "node --check ./tools/build-report.mjs",
+    "demo:prepare": "npm run check && npm run build && npm run validate",
+    "desktop:open": "powerbi-desktop open \"./build/LEGO Sets 2025.pbip\"",
+    "desktop:status": "powerbi-desktop status"
+  },
+  "devDependencies": {
+    "@microsoft/powerbi-desktop-bridge-cli": "1.0.0",
+    "@microsoft/powerbi-report-authoring-cli": "0.5.0"
+  }
+}

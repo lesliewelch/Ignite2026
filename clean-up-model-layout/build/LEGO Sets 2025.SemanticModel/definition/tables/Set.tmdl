@@ -1,0 +1,117 @@
+/// Product catalog at one row per LEGO set, including theme, designer, piece count, and retail price.
+table 'Set'
+
+	/// Total pieces across the sets in the current filter context.
+	measure 'Total Pieces' = SUM('Set'[Pieces])
+		formatString: #,##0
+
+	/// Weighted retail price per piece for the selected sets.
+	measure 'Price per Piece' = DIVIDE(SUM('Set'[RetailPrice]), SUM('Set'[Pieces]))
+		formatString: $0.00
+
+	/// Unique identifier for a set.
+	column SetKey
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: SetKey
+
+	/// Public-facing set number.
+	column SetNumber
+		dataType: string
+		sourceColumn: SetNumber
+
+	/// Fictional set name.
+	column SetName
+		dataType: string
+		sourceColumn: SetName
+
+	/// LEGO theme assigned to the set.
+	column Theme
+		dataType: string
+		sourceColumn: Theme
+
+	/// Licensing classification for the LEGO theme.
+	column ThemeGroup
+		dataType: string
+		sourceColumn: ThemeGroup
+
+	/// Designer credited for the set.
+	column DesignerName
+		dataType: string
+		sourceColumn: DesignerName
+
+	/// Studio responsible for the set design.
+	column Studio
+		dataType: string
+		sourceColumn: Studio
+
+	/// Primary design specialty for the credited designer.
+	column Specialty
+		dataType: string
+		sourceColumn: Specialty
+
+	/// Number of pieces in the set.
+	column Pieces
+		dataType: int64
+		summarizeBy: sum
+		sourceColumn: Pieces
+
+	/// Number of minifigures in the set.
+	column Minifigs
+		dataType: int64
+		summarizeBy: sum
+		sourceColumn: Minifigs
+
+	/// Fictional retail price in US dollars.
+	column RetailPrice
+		dataType: decimal
+		summarizeBy: sum
+		sourceColumn: RetailPrice
+
+	/// Year the fictional set was released.
+	column ReleaseYear
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: ReleaseYear
+
+	partition Set = m
+		mode: import
+		source =
+			let
+				Source = #table(
+					type table [SetKey = Int64.Type,
+				SetNumber = text,
+				SetName = text,
+				Theme = text,
+				ThemeGroup = text,
+				DesignerName = text,
+				Studio = text,
+				Specialty = text,
+				Pieces = Int64.Type,
+				Minifigs = Int64.Type,
+				RetailPrice = number,
+				ReleaseYear = Int64.Type],
+					{
+				{1, "75301", "Starfighter Patrol", "Star Wars", "Licensed", "Avery Stone", "North Brick Studio", "Vehicles", 625, 5, 89.99, 2025},
+				{2, "76411", "Wizarding Library", "Harry Potter", "Licensed", "Morgan Reed", "North Brick Studio", "Fantasy", 890, 7, 109.99, 2025},
+				{3, "42147", "Rally Engineering Car", "Technic", "In-house", "Riley Chen", "Bright Build Lab", "Mechanisms", 1320, 4, 149.99, 2025},
+				{4, "60412", "Harbor Rescue Station", "City", "In-house", "Taylor Quinn", "Independent", "Play features", 740, 6, 79.99, 2025},
+				{5, "21351", "Botanical Conservatory", "Ideas", "In-house", "Casey Brooks", "Independent", "Collectibles", 1540, 9, 169.99, 2025},
+				{6, "42621", "Heartlake Music House", "Friends", "In-house", "Taylor Quinn", "Independent", "Play features", 685, 5, 69.99, 2025},
+				{7, "75318", "Desert Outpost", "Star Wars", "Licensed", "Jamie Park", "Bright Build Lab", "Architecture", 980, 8, 119.99, 2025},
+				{8, "76428", "Enchanted Clock Tower", "Harry Potter", "Licensed", "Morgan Reed", "North Brick Studio", "Fantasy", 1135, 8, 139.99, 2025},
+				{9, "42162", "Heavy Lift Crane", "Technic", "In-house", "Riley Chen", "Bright Build Lab", "Mechanisms", 1880, 6, 219.99, 2025},
+				{10, "60425", "Mountain Fire Lookout", "City", "In-house", "Avery Stone", "North Brick Studio", "Vehicles", 520, 4, 59.99, 2025},
+				{11, "21358", "Retro Cinema House", "Ideas", "In-house", "Casey Brooks", "Independent", "Collectibles", 2100, 10, 229.99, 2025},
+				{12, "42634", "Friendship Garden Cafe", "Friends", "In-house", "Taylor Quinn", "Independent", "Play features", 455, 4, 49.99, 2025},
+				{13, "75342", "Orbital Research Ship", "Star Wars", "Licensed", "Jamie Park", "Bright Build Lab", "Architecture", 1460, 7, 179.99, 2025},
+				{14, "76439", "Hogwarts Greenhouse", "Harry Potter", "Licensed", "Morgan Reed", "North Brick Studio", "Fantasy", 760, 6, 99.99, 2025},
+				{15, "42188", "Electric Formula Racer", "Technic", "In-house", "Riley Chen", "Bright Build Lab", "Mechanisms", 980, 3, 129.99, 2025},
+				{16, "60441", "Metro Tram Depot", "City", "In-house", "Avery Stone", "North Brick Studio", "Vehicles", 1250, 8, 129.99, 2025},
+				{17, "21373", "Seaside Bookshop", "Ideas", "In-house", "Casey Brooks", "Independent", "Collectibles", 1180, 7, 119.99, 2025},
+				{18, "42652", "Friends Art Studio", "Friends", "In-house", "Taylor Quinn", "Independent", "Play features", 610, 5, 64.99, 2025}
+					}
+				)
+			in
+					Source

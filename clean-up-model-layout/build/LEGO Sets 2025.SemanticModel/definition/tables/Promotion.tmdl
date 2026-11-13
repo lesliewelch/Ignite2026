@@ -1,0 +1,50 @@
+/// Four fictional 2025 campaigns plus a no-promotion member used by sales orders.
+table Promotion
+
+	/// Unique identifier for a promotion; zero means no promotion.
+	column PromotionKey
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: PromotionKey
+
+	/// Promotion campaign name.
+	column PromotionName
+		dataType: string
+		sourceColumn: PromotionName
+
+	/// Promotion category.
+	column PromotionType
+		dataType: string
+		sourceColumn: PromotionType
+
+	/// First day the promotion is active.
+	column StartDate
+		dataType: dateTime
+		sourceColumn: StartDate
+
+	/// Last day the promotion is active.
+	column EndDate
+		dataType: dateTime
+		sourceColumn: EndDate
+
+	partition Promotion = m
+		mode: import
+		source =
+			let
+				Source = #table(
+					type table [PromotionKey = Int64.Type,
+				PromotionName = text,
+				PromotionType = text,
+				StartDate = nullable date,
+				EndDate = nullable date],
+					{
+				{0, "No Promotion", "None", null, null},
+				{1, "Winter Build Days", "Seasonal", #date(2025, 1, 1), #date(2025, 3, 31)},
+				{2, "Spring Brick Festival", "Seasonal", #date(2025, 4, 1), #date(2025, 6, 30)},
+				{3, "Summer Set Launch", "Launch", #date(2025, 7, 1), #date(2025, 9, 30)},
+				{4, "Holiday Double Points", "Loyalty", #date(2025, 10, 1), #date(2025, 12, 31)}
+					}
+				)
+			in
+					Source

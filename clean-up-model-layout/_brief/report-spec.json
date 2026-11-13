@@ -1,0 +1,304 @@
+{
+  "version": 1,
+  "report": {
+    "name": "LEGO Sets 2025",
+    "pageSize": { "width": 1920, "height": 1080 },
+    "visualSchema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+    "ids": {
+      "reportLogicalId": "3c4de675-2872-4867-b4e8-3b430410a00c",
+      "modelLogicalId": "ec793208-bb70-4ec1-b7f2-67acbbc5419a",
+      "databaseId": "82bf227d-bb83-49cf-a80d-d8f42457b359"
+    },
+    "theme": {
+      "name": "LEGO-Clean-Corporate",
+      "colors": {
+        "accent": "#006CB7",
+        "slate": "#4A5B6C",
+        "rating": "#B7791F",
+        "discount": "#B23A3A",
+        "positive": "#247A58",
+        "ink": "#1C2833",
+        "border": "#D8E0E6",
+        "page": "#F5F6F8",
+        "visual": "#FFFFFF",
+        "categorical": ["#006CB7", "#4A5B6C", "#B7791F", "#B23A3A", "#247A58", "#3A7D8C", "#6D5B7B", "#9A6B3F"]
+      },
+      "font": "Segoe UI",
+      "fontSemibold": "Segoe UI Semibold"
+    }
+  },
+  "model": {
+    "culture": "en-US",
+    "compatibilityLevel": 1702,
+    "dataYear": 2025,
+    "tables": [
+      {
+        "name": "Sales",
+        "description": "One row per fictional 2025 set order, including its store, promotion, quantity, and realized discount.",
+        "columns": [
+          { "name": "SalesKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Unique identifier for a sales order row." },
+          { "name": "OrderDate", "dataType": "dateTime", "mType": "date", "valueType": "date", "description": "Date the order was placed." },
+          { "name": "SetKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Set purchased in the order." },
+          { "name": "StoreKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Store or channel fulfilling the order." },
+          { "name": "PromotionKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Promotion applied to the order; zero means no promotion." },
+          { "name": "Quantity", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "sum", "description": "Number of sets in this order." },
+          { "name": "UnitPrice", "dataType": "decimal", "mType": "number", "valueType": "number", "hidden": true, "summarizeBy": "sum", "description": "Retail price per set before discount." },
+          { "name": "DiscountPct", "dataType": "decimal", "mType": "number", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Effective discount rate applied to this order." }
+        ],
+        "measures": [
+          { "name": "Revenue", "expression": "SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] * (1 - Sales[DiscountPct]))", "format": "$#,##0.00", "description": "Net sales after discounts for the current filter context." },
+          { "name": "Units Sold", "expression": "SUM(Sales[Quantity])", "format": "#,##0", "description": "Total sets sold in the current filter context." },
+          { "name": "Orders", "expression": "COUNTROWS(Sales)", "format": "#,##0", "description": "Number of fictional order rows in the current filter context." },
+          { "name": "Avg Selling Price", "expression": "DIVIDE([Revenue], [Units Sold])", "format": "$#,##0.00", "description": "Net revenue per set sold." },
+          { "name": "Discount Amount", "expression": "SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] * Sales[DiscountPct])", "format": "$#,##0.00", "description": "Gross value discounted from set sales." }
+        ]
+      },
+      {
+        "name": "Reviews",
+        "description": "One row per fictional builder review, including rating, estimated build time, and reviewer age group.",
+        "columns": [
+          { "name": "ReviewKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Unique identifier for a review." },
+          { "name": "ReviewDate", "dataType": "dateTime", "mType": "date", "valueType": "date", "description": "Date the review was submitted." },
+          { "name": "SetKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Set being reviewed." },
+          { "name": "Rating", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "average", "description": "Builder rating from one to five." },
+          { "name": "BuildHours", "dataType": "decimal", "mType": "number", "valueType": "number", "hidden": true, "summarizeBy": "average", "description": "Estimated hours to complete the build." },
+          { "name": "AgeGroup", "dataType": "string", "mType": "text", "valueType": "string", "description": "Age group of the reviewer." }
+        ],
+        "measures": [
+          { "name": "Avg Rating", "expression": "AVERAGE(Reviews[Rating])", "format": "0.0", "description": "Average builder rating on a five-point scale." },
+          { "name": "Review Count", "expression": "COUNTROWS(Reviews)", "format": "#,##0", "description": "Number of reviews in the current filter context." },
+          { "name": "Avg Build Hours", "expression": "AVERAGE(Reviews[BuildHours])", "format": "0.0", "description": "Average estimated build duration in hours." }
+        ]
+      },
+      {
+        "name": "Inventory",
+        "description": "Quarter-end inventory snapshot for every modeled set and store; 432 rows at a set-store-quarter grain.",
+        "columns": [
+          { "name": "InventoryKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Unique identifier for an inventory snapshot row." },
+          { "name": "SnapshotDate", "dataType": "dateTime", "mType": "date", "valueType": "date", "description": "Quarter-end date represented by the snapshot." },
+          { "name": "SetKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Set represented by the snapshot." },
+          { "name": "StoreKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Store represented by the snapshot." },
+          { "name": "OnHandQty", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "sum", "description": "Units available at the snapshot date." },
+          { "name": "ReorderPoint", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Stock level below which a set is considered low." },
+          { "name": "UnitCost", "dataType": "decimal", "mType": "number", "valueType": "number", "hidden": true, "summarizeBy": "sum", "description": "Fictional unit cost used to estimate inventory value." }
+        ],
+        "measures": [
+          { "name": "Units On Hand", "expression": "CALCULATE(SUM(Inventory[OnHandQty]), LASTDATE('Date'[Date]))", "format": "#,##0", "description": "On-hand units at the latest date in the selected date context." },
+          { "name": "Low Stock Sets", "expression": "COUNTROWS(FILTER(VALUES('Set'[SetKey]), [Units On Hand] < CALCULATE(MAX(Inventory[ReorderPoint]))))", "format": "#,##0", "description": "Distinct sets below their reorder point at the latest selected snapshot." },
+          { "name": "Inventory Value", "expression": "CALCULATE(SUMX(Inventory, Inventory[OnHandQty] * Inventory[UnitCost]), LASTDATE('Date'[Date]))", "format": "$#,##0.00", "description": "Estimated cost value of on-hand units at the latest selected snapshot." }
+        ]
+      },
+      {
+        "name": "Set",
+        "description": "Product catalog at one row per LEGO set, including theme, designer, piece count, and retail price.",
+        "columns": [
+          { "name": "SetKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Unique identifier for a set." },
+          { "name": "SetNumber", "dataType": "string", "mType": "text", "valueType": "string", "description": "Public-facing set number." },
+          { "name": "SetName", "dataType": "string", "mType": "text", "valueType": "string", "description": "Fictional set name." },
+          { "name": "ThemeKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Theme assigned to the set." },
+          { "name": "DesignerKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Primary designer assigned to the set." },
+          { "name": "Pieces", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "summarizeBy": "sum", "description": "Number of pieces in the set." },
+          { "name": "Minifigs", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "summarizeBy": "sum", "description": "Number of minifigures in the set." },
+          { "name": "RetailPrice", "dataType": "decimal", "mType": "number", "valueType": "number", "summarizeBy": "sum", "description": "Fictional retail price in US dollars." },
+          { "name": "ReleaseYear", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "summarizeBy": "none", "description": "Year the fictional set was released." }
+        ],
+        "measures": [
+          { "name": "Total Pieces", "expression": "SUM('Set'[Pieces])", "format": "#,##0", "description": "Total pieces across the sets in the current filter context." },
+          { "name": "Price per Piece", "expression": "DIVIDE(SUM('Set'[RetailPrice]), SUM('Set'[Pieces]))", "format": "$0.00", "description": "Weighted retail price per piece for the selected sets." }
+        ]
+      },
+      {
+        "name": "Theme",
+        "description": "Six LEGO themes grouped as licensed or in-house properties.",
+        "columns": [
+          { "name": "ThemeKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Unique identifier for a theme." },
+          { "name": "Theme", "dataType": "string", "mType": "text", "valueType": "string", "description": "Theme name." },
+          { "name": "ThemeGroup", "dataType": "string", "mType": "text", "valueType": "string", "description": "Licensed or in-house theme grouping." }
+        ]
+      },
+      {
+        "name": "Store",
+        "description": "Six fictional sales locations representing brand stores, online, and retail partners.",
+        "columns": [
+          { "name": "StoreKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Unique identifier for a store." },
+          { "name": "StoreName", "dataType": "string", "mType": "text", "valueType": "string", "description": "Store or channel display name." },
+          { "name": "Channel", "dataType": "string", "mType": "text", "valueType": "string", "description": "Brand Store, Online, or Retail Partner." },
+          { "name": "City", "dataType": "string", "mType": "text", "valueType": "string", "description": "City for the store location." },
+          { "name": "Country", "dataType": "string", "mType": "text", "valueType": "string", "description": "Country for the store location." },
+          { "name": "Region", "dataType": "string", "mType": "text", "valueType": "string", "description": "Sales region for the store." }
+        ]
+      },
+      {
+        "name": "Designer",
+        "description": "Six fictional designers and studios used to attribute catalog sets.",
+        "columns": [
+          { "name": "DesignerKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Unique identifier for a designer." },
+          { "name": "DesignerName", "dataType": "string", "mType": "text", "valueType": "string", "description": "Fictional designer name." },
+          { "name": "Studio", "dataType": "string", "mType": "text", "valueType": "string", "description": "Fictional design studio." },
+          { "name": "Specialty", "dataType": "string", "mType": "text", "valueType": "string", "description": "Primary design specialty." }
+        ]
+      },
+      {
+        "name": "Promotion",
+        "description": "Four fictional 2025 campaigns plus a no-promotion member used by sales orders.",
+        "columns": [
+          { "name": "PromotionKey", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Unique identifier for a promotion; zero means no promotion." },
+          { "name": "PromotionName", "dataType": "string", "mType": "text", "valueType": "string", "description": "Promotion campaign name." },
+          { "name": "PromotionType", "dataType": "string", "mType": "text", "valueType": "string", "description": "Promotion category." },
+          { "name": "StartDate", "dataType": "dateTime", "mType": "nullable date", "valueType": "date", "description": "First day the promotion is active." },
+          { "name": "EndDate", "dataType": "dateTime", "mType": "nullable date", "valueType": "date", "description": "Last day the promotion is active." }
+        ]
+      },
+      {
+        "name": "Date",
+        "description": "Contiguous daily calendar for 2025, with month and quarter labels for report slicing.",
+        "dateTable": true,
+        "columns": [
+          { "name": "Date", "dataType": "dateTime", "mType": "date", "valueType": "date", "dataCategory": "Time", "description": "Calendar date." },
+          { "name": "Year", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "summarizeBy": "none", "description": "Calendar year." },
+          { "name": "Quarter", "dataType": "string", "mType": "text", "valueType": "string", "description": "Calendar quarter label." },
+          { "name": "QuarterNo", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Numeric quarter sort order." },
+          { "name": "MonthNo", "dataType": "int64", "mType": "Int64.Type", "valueType": "number", "hidden": true, "summarizeBy": "none", "description": "Numeric month sort order." },
+          { "name": "Month", "dataType": "string", "mType": "text", "valueType": "string", "sortByColumn": "MonthNo", "description": "Calendar month name, sorted by month number." }
+        ]
+      }
+    ],
+    "relationships": [
+      { "name": "Sales Order Date", "from": ["Sales", "OrderDate"], "to": ["Date", "Date"] },
+      { "name": "Sales Set", "from": ["Sales", "SetKey"], "to": ["Set", "SetKey"] },
+      { "name": "Sales Store", "from": ["Sales", "StoreKey"], "to": ["Store", "StoreKey"] },
+      { "name": "Sales Promotion", "from": ["Sales", "PromotionKey"], "to": ["Promotion", "PromotionKey"] },
+      { "name": "Reviews Review Date", "from": ["Reviews", "ReviewDate"], "to": ["Date", "Date"] },
+      { "name": "Reviews Set", "from": ["Reviews", "SetKey"], "to": ["Set", "SetKey"] },
+      { "name": "Inventory Snapshot Date", "from": ["Inventory", "SnapshotDate"], "to": ["Date", "Date"] },
+      { "name": "Inventory Set", "from": ["Inventory", "SetKey"], "to": ["Set", "SetKey"] },
+      { "name": "Inventory Store", "from": ["Inventory", "StoreKey"], "to": ["Store", "StoreKey"] },
+      { "name": "Set Theme", "from": ["Set", "ThemeKey"], "to": ["Theme", "ThemeKey"] },
+      { "name": "Set Designer", "from": ["Set", "DesignerKey"], "to": ["Designer", "DesignerKey"] }
+    ]
+  },
+  "data": {
+    "themes": [
+      { "key": 1, "theme": "Star Wars", "group": "Licensed" },
+      { "key": 2, "theme": "Harry Potter", "group": "Licensed" },
+      { "key": 3, "theme": "Technic", "group": "In-house" },
+      { "key": 4, "theme": "City", "group": "In-house" },
+      { "key": 5, "theme": "Ideas", "group": "In-house" },
+      { "key": 6, "theme": "Friends", "group": "In-house" }
+    ],
+    "designers": [
+      { "key": 1, "name": "Avery Stone", "studio": "North Brick Studio", "specialty": "Vehicles" },
+      { "key": 2, "name": "Morgan Reed", "studio": "North Brick Studio", "specialty": "Fantasy" },
+      { "key": 3, "name": "Jamie Park", "studio": "Bright Build Lab", "specialty": "Architecture" },
+      { "key": 4, "name": "Riley Chen", "studio": "Bright Build Lab", "specialty": "Mechanisms" },
+      { "key": 5, "name": "Casey Brooks", "studio": "Independent", "specialty": "Collectibles" },
+      { "key": 6, "name": "Taylor Quinn", "studio": "Independent", "specialty": "Play features" }
+    ],
+    "stores": [
+      { "key": 1, "name": "Copenhagen Flagship", "channel": "Brand Store", "city": "Copenhagen", "country": "Denmark", "region": "Europe" },
+      { "key": 2, "name": "New York Fifth Avenue", "channel": "Brand Store", "city": "New York", "country": "United States", "region": "North America" },
+      { "key": 3, "name": "LEGO.com", "channel": "Online", "city": "Billund", "country": "Denmark", "region": "Europe" },
+      { "key": 4, "name": "Brick House Retail", "channel": "Retail Partner", "city": "Seattle", "country": "United States", "region": "North America" },
+      { "key": 5, "name": "Toy Galaxy", "channel": "Retail Partner", "city": "Melbourne", "country": "Australia", "region": "Asia Pacific" },
+      { "key": 6, "name": "Tokyo Brand Store", "channel": "Brand Store", "city": "Tokyo", "country": "Japan", "region": "Asia Pacific" }
+    ],
+    "promotions": [
+      { "key": 0, "name": "No Promotion", "type": "None", "start": null, "end": null },
+      { "key": 1, "name": "Winter Build Days", "type": "Seasonal", "start": "2025-01-01", "end": "2025-03-31" },
+      { "key": 2, "name": "Spring Brick Festival", "type": "Seasonal", "start": "2025-04-01", "end": "2025-06-30" },
+      { "key": 3, "name": "Summer Set Launch", "type": "Launch", "start": "2025-07-01", "end": "2025-09-30" },
+      { "key": 4, "name": "Holiday Double Points", "type": "Loyalty", "start": "2025-10-01", "end": "2025-12-31" }
+    ],
+    "sets": [
+      { "name": "Starfighter Patrol", "number": 75301, "pieces": 625, "minifigs": 5, "retailPrice": 89.99, "themeKey": 1, "designerKey": 1 },
+      { "name": "Wizarding Library", "number": 76411, "pieces": 890, "minifigs": 7, "retailPrice": 109.99, "themeKey": 2, "designerKey": 2 },
+      { "name": "Rally Engineering Car", "number": 42147, "pieces": 1320, "minifigs": 4, "retailPrice": 149.99, "themeKey": 3, "designerKey": 4 },
+      { "name": "Harbor Rescue Station", "number": 60412, "pieces": 740, "minifigs": 6, "retailPrice": 79.99, "themeKey": 4, "designerKey": 6 },
+      { "name": "Botanical Conservatory", "number": 21351, "pieces": 1540, "minifigs": 9, "retailPrice": 169.99, "themeKey": 5, "designerKey": 5 },
+      { "name": "Heartlake Music House", "number": 42621, "pieces": 685, "minifigs": 5, "retailPrice": 69.99, "themeKey": 6, "designerKey": 6 },
+      { "name": "Desert Outpost", "number": 75318, "pieces": 980, "minifigs": 8, "retailPrice": 119.99, "themeKey": 1, "designerKey": 3 },
+      { "name": "Enchanted Clock Tower", "number": 76428, "pieces": 1135, "minifigs": 8, "retailPrice": 139.99, "themeKey": 2, "designerKey": 2 },
+      { "name": "Heavy Lift Crane", "number": 42162, "pieces": 1880, "minifigs": 6, "retailPrice": 219.99, "themeKey": 3, "designerKey": 4 },
+      { "name": "Mountain Fire Lookout", "number": 60425, "pieces": 520, "minifigs": 4, "retailPrice": 59.99, "themeKey": 4, "designerKey": 1 },
+      { "name": "Retro Cinema House", "number": 21358, "pieces": 2100, "minifigs": 10, "retailPrice": 229.99, "themeKey": 5, "designerKey": 5 },
+      { "name": "Friendship Garden Cafe", "number": 42634, "pieces": 455, "minifigs": 4, "retailPrice": 49.99, "themeKey": 6, "designerKey": 6 },
+      { "name": "Orbital Research Ship", "number": 75342, "pieces": 1460, "minifigs": 7, "retailPrice": 179.99, "themeKey": 1, "designerKey": 3 },
+      { "name": "Hogwarts Greenhouse", "number": 76439, "pieces": 760, "minifigs": 6, "retailPrice": 99.99, "themeKey": 2, "designerKey": 2 },
+      { "name": "Electric Formula Racer", "number": 42188, "pieces": 980, "minifigs": 3, "retailPrice": 129.99, "themeKey": 3, "designerKey": 4 },
+      { "name": "Metro Tram Depot", "number": 60441, "pieces": 1250, "minifigs": 8, "retailPrice": 129.99, "themeKey": 4, "designerKey": 1 },
+      { "name": "Seaside Bookshop", "number": 21373, "pieces": 1180, "minifigs": 7, "retailPrice": 119.99, "themeKey": 5, "designerKey": 5 },
+      { "name": "Friends Art Studio", "number": 42652, "pieces": 610, "minifigs": 5, "retailPrice": 64.99, "themeKey": 6, "designerKey": 6 }
+    ],
+    "generation": {
+      "sales": { "rowCount": 60, "dateSpreadDays": 364, "setStride": 7, "quantityCycle": [1, 2, 3, 4, 5], "noPromotionEvery": 4, "discountByPromotion": [0, 0.06, 0.08, 0.1, 0.12] },
+      "reviews": { "rowCount": 36, "ageGroups": ["Adult", "Teen", "Child"], "ratingBase": 3, "ratingOffsetMultiplier": 7, "ratingModulo": 3, "buildHoursDivisor": 125, "buildHourCycle": 5, "buildHourStep": 0.35, "reviewDateStride": 11 },
+      "inventory": { "snapshotDates": ["2025-03-31", "2025-06-30", "2025-09-30", "2025-12-31"], "onHandBase": 20, "onHandModulo": 180, "setFactor": 17, "storeFactor": 13, "quarterFactor": 19, "reorderBase": 35, "reorderModulo": 25, "unitCostRate": 0.44 },
+      "date": { "year": 2025 }
+    }
+  },
+  "pages": [
+    {
+      "key": "sales-overview",
+      "id": "c184d0adf74c4d4c897a",
+      "name": "Sales Overview",
+      "title": "2025 LEGO Sales: Which Themes Drive Revenue",
+      "slicers": [
+        { "key": "theme-slicer", "field": ["Theme", "Theme"], "label": "Theme", "altText": "Filter sales by LEGO theme.", "position": { "x": 1184, "y": 16, "z": 2000, "height": 80, "width": 320, "tabOrder": 10 } },
+        { "key": "promotion-slicer", "field": ["Promotion", "PromotionType"], "label": "Promotion type", "altText": "Filter sales by promotion type.", "position": { "x": 1536, "y": 16, "z": 2001, "height": 80, "width": 352, "tabOrder": 11 } }
+      ],
+      "cards": [
+        { "key": "revenue-card", "field": ["Sales", "Revenue"], "label": "Revenue", "color": "accent", "altText": "Net revenue for the current selection." },
+        { "key": "units-card", "field": ["Sales", "Units Sold"], "label": "Units sold", "color": "slate", "altText": "Sets sold for the current selection." },
+        { "key": "orders-card", "field": ["Sales", "Orders"], "label": "Orders", "color": "ink", "altText": "Number of orders for the current selection." },
+        { "key": "selling-price-card", "field": ["Sales", "Avg Selling Price"], "label": "Average selling price", "color": "positive", "altText": "Net revenue per set sold for the current selection." }
+      ],
+      "visuals": [
+        { "key": "revenue-trend", "type": "lineChart", "title": "Revenue by Month", "altText": "Monthly net revenue trend for 2025.", "position": { "x": 32, "y": 280, "z": 3000, "height": 392, "width": 1096, "tabOrder": 20 }, "roles": { "Category": [{ "column": ["Date", "Month"] }], "Y": [{ "measure": ["Sales", "Revenue"] }] }, "color": "accent" },
+        { "key": "revenue-by-theme", "type": "barChart", "title": "Revenue by Theme", "altText": "Net revenue by LEGO theme, ordered from highest to lowest.", "position": { "x": 1152, "y": 280, "z": 3001, "height": 392, "width": 736, "tabOrder": 21 }, "roles": { "Category": [{ "column": ["Theme", "Theme"] }], "Y": [{ "measure": ["Sales", "Revenue"] }] }, "sortBy": ["Sales", "Revenue"], "color": "accent" },
+        { "key": "sets-by-sales", "type": "pivotTable", "title": "Set Sales Detail", "altText": "Set sales detail with theme, units sold, and net revenue.", "position": { "x": 32, "y": 704, "z": 4000, "height": 344, "width": 1856, "tabOrder": 30 }, "roles": { "Rows": [{ "column": ["Set", "SetName"] }, { "column": ["Theme", "Theme"] }], "Values": [{ "measure": ["Sales", "Units Sold"] }, { "measure": ["Sales", "Revenue"] }] } }
+      ]
+    },
+    {
+      "key": "stores-and-channels",
+      "id": "532b84aad3795aac2417",
+      "name": "Stores & Channels",
+      "title": "Store and Channel Performance: Who Sells the Most Sets",
+      "slicers": [
+        { "key": "quarter-slicer", "field": ["Date", "Quarter"], "label": "Quarter", "altText": "Filter sales and inventory by calendar quarter.", "position": { "x": 1184, "y": 16, "z": 2000, "height": 80, "width": 320, "tabOrder": 10 } },
+        { "key": "channel-slicer", "field": ["Store", "Channel"], "label": "Channel", "altText": "Filter sales and inventory by sales channel.", "position": { "x": 1536, "y": 16, "z": 2001, "height": 80, "width": 352, "tabOrder": 11 } }
+      ],
+      "cards": [
+        { "key": "revenue-card", "field": ["Sales", "Revenue"], "label": "Revenue", "color": "accent", "altText": "Net revenue for the current selection." },
+        { "key": "discount-card", "field": ["Sales", "Discount Amount"], "label": "Discount amount", "color": "discount", "altText": "Total discount amount for the current selection." },
+        { "key": "orders-card", "field": ["Sales", "Orders"], "label": "Orders", "color": "slate", "altText": "Number of orders for the current selection." },
+        { "key": "on-hand-card", "field": ["Inventory", "Units On Hand"], "label": "Units on hand", "color": "positive", "altText": "Units in stock at the latest selected snapshot date." }
+      ],
+      "visuals": [
+        { "key": "revenue-by-store", "type": "barChart", "title": "Revenue by Store", "altText": "Net revenue by store, ordered from highest to lowest.", "position": { "x": 32, "y": 280, "z": 3000, "height": 392, "width": 912, "tabOrder": 20 }, "roles": { "Category": [{ "column": ["Store", "StoreName"] }], "Y": [{ "measure": ["Sales", "Revenue"] }] }, "sortBy": ["Sales", "Revenue"], "color": "accent" },
+        { "key": "revenue-by-channel", "type": "clusteredColumnChart", "title": "Revenue and Discounts by Channel", "altText": "Net revenue and discount value compared by sales channel.", "position": { "x": 968, "y": 280, "z": 3001, "height": 392, "width": 920, "tabOrder": 21 }, "roles": { "Category": [{ "column": ["Store", "Channel"] }], "Y": [{ "measure": ["Sales", "Revenue"] }, { "measure": ["Sales", "Discount Amount"] }] }, "seriesColors": { "Sales.Revenue": "accent", "Sales.Discount Amount": "discount" } },
+        { "key": "region-quarter-matrix", "type": "pivotTable", "title": "Revenue and Inventory by Region and Quarter", "altText": "Regional quarterly revenue, quarter-end units on hand, and inventory value.", "position": { "x": 32, "y": 704, "z": 4000, "height": 344, "width": 1856, "tabOrder": 30 }, "roles": { "Rows": [{ "column": ["Store", "Region"] }, { "column": ["Store", "Country"] }], "Columns": [{ "column": ["Date", "Quarter"] }], "Values": [{ "measure": ["Sales", "Revenue"] }, { "measure": ["Inventory", "Units On Hand"] }, { "measure": ["Inventory", "Inventory Value"] }] } }
+      ]
+    },
+    {
+      "key": "set-catalog-and-reviews",
+      "id": "a51bdf9536775a06b538",
+      "name": "Set Catalog & Reviews",
+      "title": "Do Bigger Sets Earn Better Reviews?",
+      "slicers": [
+        { "key": "themegroup-slicer", "field": ["Theme", "ThemeGroup"], "label": "Theme group", "altText": "Filter set reviews by licensed or in-house theme.", "position": { "x": 1184, "y": 16, "z": 2000, "height": 80, "width": 320, "tabOrder": 10 } },
+        { "key": "agegroup-slicer", "field": ["Reviews", "AgeGroup"], "label": "Reviewer age group", "altText": "Filter reviews by reviewer age group.", "position": { "x": 1536, "y": 16, "z": 2001, "height": 80, "width": 352, "tabOrder": 11 } }
+      ],
+      "cards": [
+        { "key": "rating-card", "field": ["Reviews", "Avg Rating"], "label": "Average rating", "color": "rating", "altText": "Average review rating on a five-point scale." },
+        { "key": "review-count-card", "field": ["Reviews", "Review Count"], "label": "Review count", "color": "slate", "altText": "Number of reviews in the current selection." },
+        { "key": "build-hours-card", "field": ["Reviews", "Avg Build Hours"], "label": "Average build hours", "color": "ink", "altText": "Average estimated build duration in hours." },
+        { "key": "price-per-piece-card", "field": ["Set", "Price per Piece"], "label": "Price per piece", "color": "accent", "altText": "Weighted retail price per piece for the selected sets." }
+      ],
+      "visuals": [
+        { "key": "pieces-versus-rating", "type": "scatterChart", "title": "Set Size vs. Average Rating", "altText": "Each point is a set; the horizontal axis is total pieces and the vertical axis is average builder rating.", "position": { "x": 32, "y": 280, "z": 3000, "height": 392, "width": 912, "tabOrder": 20 }, "roles": { "Category": [{ "column": ["Set", "SetName"] }], "X": [{ "measure": ["Set", "Total Pieces"] }], "Y": [{ "measure": ["Reviews", "Avg Rating"] }] } },
+        { "key": "rating-by-theme", "type": "barChart", "title": "Average Rating by Theme", "altText": "Average builder rating by LEGO theme, ordered from highest to lowest.", "position": { "x": 968, "y": 280, "z": 3001, "height": 392, "width": 920, "tabOrder": 21 }, "roles": { "Category": [{ "column": ["Theme", "Theme"] }], "Y": [{ "measure": ["Reviews", "Avg Rating"] }] }, "sortBy": ["Reviews", "Avg Rating"], "color": "rating" },
+        { "key": "set-catalog-matrix", "type": "pivotTable", "title": "Set Catalog and Reviews", "altText": "Catalog of sets with designer, piece count, retail price, price per piece, and average rating.", "position": { "x": 32, "y": 704, "z": 4000, "height": 344, "width": 1856, "tabOrder": 30 }, "roles": { "Rows": [{ "column": ["Set", "SetNumber"] }, { "column": ["Set", "SetName"] }, { "column": ["Designer", "DesignerName"] }, { "column": ["Set", "Pieces"] }, { "column": ["Set", "RetailPrice"] }], "Values": [{ "measure": ["Set", "Price per Piece"] }, { "measure": ["Reviews", "Avg Rating"] }] } }
+      ]
+    }
+  ]
+}
