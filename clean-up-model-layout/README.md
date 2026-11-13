@@ -4,6 +4,8 @@ This repository contains a deterministic, locally generated Power BI Project (PB
 
 For a presenter cloning this repo onto their own machine, see the [Ignite speaker setup guide](docs/SPEAKER-SETUP.md), including optional Fabric skills and MCP setup.
 
+To use the layout scripts on your own semantic model, see [Use the layout tools with your own model](docs/USE-WITH-YOUR-MODEL.md).
+
 ## Clone Setup
 
 1. Clone the repository and open its root folder in VS Code.
