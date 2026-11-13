@@ -8,9 +8,7 @@ ref table Sales
 ref table Reviews
 ref table Inventory
 ref table 'Set'
-ref table Theme
 ref table Store
-ref table Designer
 ref table Promotion
 ref table Date
 ref cultureInfo en-US
