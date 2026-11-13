@@ -1,85 +1,50 @@
 /// Four fictional 2025 campaigns plus a no-promotion member used by sales orders.
 table Promotion
-	lineageTag: 5984ee11-c8c2-4d3a-9cd4-f96ed03c62d9
 
 	/// Unique identifier for a promotion; zero means no promotion.
 	column PromotionKey
 		dataType: int64
 		isHidden
-		lineageTag: 3d745bdb-0347-439c-8575-6869262c8f03
 		summarizeBy: none
 		sourceColumn: PromotionKey
 
 	/// Promotion campaign name.
 	column PromotionName
 		dataType: string
-		lineageTag: 587263fe-7fc0-4dd2-b232-befcf6629e19
-		summarizeBy: none
 		sourceColumn: PromotionName
-
-		annotation SummarizationSetBy = Automatic
 
 	/// Promotion category.
 	column PromotionType
 		dataType: string
-		lineageTag: b7c57875-49ee-4cb9-923a-b14d64c677de
-		summarizeBy: none
 		sourceColumn: PromotionType
-
-		annotation SummarizationSetBy = Automatic
 
 	/// First day the promotion is active.
 	column StartDate
 		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 5f8303e6-35ab-457d-bad5-76354faa6538
-		summarizeBy: none
 		sourceColumn: StartDate
-
-		variation Variation
-			isDefault
-			relationship: 49bc7b65-89d7-4202-8ea5-3a9cc71d521e
-			defaultHierarchy: LocalDateTable_91f4fe93-2cde-4b8e-8577-e76aa52e454e.'Date Hierarchy'
-
-		annotation UnderlyingDateTimeDataType = Date
-
-		annotation SummarizationSetBy = Automatic
 
 	/// Last day the promotion is active.
 	column EndDate
 		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 893d6d73-58e1-4855-a66e-3ab576614216
-		summarizeBy: none
 		sourceColumn: EndDate
-
-		variation Variation
-			isDefault
-			relationship: 542f4584-fb4d-4315-95e1-6fdea427be5b
-			defaultHierarchy: LocalDateTable_04832d9f-94a0-4f69-adff-ee3192b9392f.'Date Hierarchy'
-
-		annotation UnderlyingDateTimeDataType = Date
-
-		annotation SummarizationSetBy = Automatic
 
 	partition Promotion = m
 		mode: import
 		source =
-				let
-					Source = #table(
-						type table [PromotionKey = Int64.Type,
-					PromotionName = text,
-					PromotionType = text,
-					StartDate = nullable date,
-					EndDate = nullable date],
-						{
-					{0, "No Promotion", "None", null, null},
-					{1, "Winter Build Days", "Seasonal", #date(2025, 1, 1), #date(2025, 3, 31)},
-					{2, "Spring Brick Festival", "Seasonal", #date(2025, 4, 1), #date(2025, 6, 30)},
-					{3, "Summer Set Launch", "Launch", #date(2025, 7, 1), #date(2025, 9, 30)},
-					{4, "Holiday Double Points", "Loyalty", #date(2025, 10, 1), #date(2025, 12, 31)}
-						}
-					)
-				in
-						Source
-
+			let
+				Source = #table(
+					type table [PromotionKey = Int64.Type,
+				PromotionName = text,
+				PromotionType = text,
+				StartDate = nullable date,
+				EndDate = nullable date],
+					{
+				{0, "No Promotion", "None", null, null},
+				{1, "Winter Build Days", "Seasonal", #date(2025, 1, 1), #date(2025, 3, 31)},
+				{2, "Spring Brick Festival", "Seasonal", #date(2025, 4, 1), #date(2025, 6, 30)},
+				{3, "Summer Set Launch", "Launch", #date(2025, 7, 1), #date(2025, 9, 30)},
+				{4, "Holiday Double Points", "Loyalty", #date(2025, 10, 1), #date(2025, 12, 31)}
+					}
+				)
+			in
+					Source

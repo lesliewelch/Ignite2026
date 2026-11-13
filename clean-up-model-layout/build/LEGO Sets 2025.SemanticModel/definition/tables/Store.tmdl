@@ -1,65 +1,57 @@
 /// Six fictional sales locations representing brand stores, online, and retail partners.
 table Store
-	lineageTag: b2b7a302-e2b8-47a4-9e37-eb7cf97e724d
 
 	/// Unique identifier for a store.
 	column StoreKey
 		dataType: int64
 		isHidden
-		lineageTag: 1f653147-3bdb-45d1-a31e-6e91700201e8
 		summarizeBy: none
 		sourceColumn: StoreKey
 
 	/// Store or channel display name.
 	column StoreName
 		dataType: string
-		lineageTag: f5e256ce-c06e-4324-9c9e-522502b35397
 		sourceColumn: StoreName
 
 	/// Brand Store, Online, or Retail Partner.
 	column Channel
 		dataType: string
-		lineageTag: 0beeb36a-efce-43d7-b062-073480f66ce0
 		sourceColumn: Channel
 
 	/// City for the store location.
 	column City
 		dataType: string
-		lineageTag: ecc80884-3cf8-45b2-8d94-c95d899bf74e
 		sourceColumn: City
 
 	/// Country for the store location.
 	column Country
 		dataType: string
-		lineageTag: 2e001a7b-ac2d-456e-a8a4-7043e28f0ebd
 		sourceColumn: Country
 
 	/// Sales region for the store.
 	column Region
 		dataType: string
-		lineageTag: 5749a316-e484-42df-afcf-7b86068f7219
 		sourceColumn: Region
 
 	partition Store = m
 		mode: import
 		source =
-				let
-					Source = #table(
-						type table [StoreKey = Int64.Type,
-					StoreName = text,
-					Channel = text,
-					City = text,
-					Country = text,
-					Region = text],
-						{
-					{1, "Copenhagen Flagship", "Brand Store", "Copenhagen", "Denmark", "Europe"},
-					{2, "New York Fifth Avenue", "Brand Store", "New York", "United States", "North America"},
-					{3, "LEGO.com", "Online", "Billund", "Denmark", "Europe"},
-					{4, "Brick House Retail", "Retail Partner", "Seattle", "United States", "North America"},
-					{5, "Toy Galaxy", "Retail Partner", "Melbourne", "Australia", "Asia Pacific"},
-					{6, "Tokyo Brand Store", "Brand Store", "Tokyo", "Japan", "Asia Pacific"}
-						}
-					)
-				in
-						Source
-
+			let
+				Source = #table(
+					type table [StoreKey = Int64.Type,
+				StoreName = text,
+				Channel = text,
+				City = text,
+				Country = text,
+				Region = text],
+					{
+				{1, "Copenhagen Flagship", "Brand Store", "Copenhagen", "Denmark", "Europe"},
+				{2, "New York Fifth Avenue", "Brand Store", "New York", "United States", "North America"},
+				{3, "LEGO.com", "Online", "Billund", "Denmark", "Europe"},
+				{4, "Brick House Retail", "Retail Partner", "Seattle", "United States", "North America"},
+				{5, "Toy Galaxy", "Retail Partner", "Melbourne", "Australia", "Asia Pacific"},
+				{6, "Tokyo Brand Store", "Brand Store", "Tokyo", "Japan", "Asia Pacific"}
+					}
+				)
+			in
+					Source

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "30f9b66022f8b7a392c5",
   "position": {
     "x": 32,
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Date.Month",
-              "nativeQueryRef": "Month",
-              "active": true
+              "nativeQueryRef": "Month"
             }
           ]
         },
@@ -51,25 +50,6 @@
           ]
         }
       }
-    },
-    "objects": {
-      "dataPoint": [
-        {
-          "properties": {
-            "defaultColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#006CB7'"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "visualContainerObjects": {
       "general": [
@@ -275,6 +255,25 @@
               "expr": {
                 "Literal": {
                   "Value": "'Left'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "defaultColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#006CB7'"
+                    }
+                  }
                 }
               }
             }

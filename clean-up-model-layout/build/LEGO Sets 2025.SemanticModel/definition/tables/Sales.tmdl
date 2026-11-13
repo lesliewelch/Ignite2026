@@ -1,57 +1,42 @@
 /// One row per fictional 2025 set order, including its store, promotion, quantity, and realized discount.
 table Sales
-	lineageTag: 9cc6e18c-ebcf-41e7-89ea-caff851bf409
 
 	/// Net sales after discounts for the current filter context.
-	measure Revenue = SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] * (1 - Sales[DiscountPct]))
+	measure 'Revenue' = SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] * (1 - Sales[DiscountPct]))
 		formatString: $#,##0.00
-		lineageTag: 5864b664-cd31-4733-bf0b-2877f23a73ea
 
 	/// Total sets sold in the current filter context.
 	measure 'Units Sold' = SUM(Sales[Quantity])
 		formatString: #,##0
-		lineageTag: 18ebdf18-1176-4e38-80c4-d378d01e02e7
 
 	/// Number of fictional order rows in the current filter context.
-	measure Orders = COUNTROWS(Sales)
+	measure 'Orders' = COUNTROWS(Sales)
 		formatString: #,##0
-		lineageTag: a9ad3fd2-1bbe-4e3a-8f9e-2f22cb448b56
 
 	/// Net revenue per set sold.
 	measure 'Avg Selling Price' = DIVIDE([Revenue], [Units Sold])
 		formatString: $#,##0.00
-		lineageTag: ec4d1798-11a1-489b-83f2-e8fcd39a69e1
 
 	/// Gross value discounted from set sales.
 	measure 'Discount Amount' = SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] * Sales[DiscountPct])
 		formatString: $#,##0.00
-		lineageTag: 68a87cf9-fad5-4d08-89b3-782020966225
 
 	/// Unique identifier for a sales order row.
 	column SalesKey
 		dataType: int64
 		isHidden
-		lineageTag: 21781479-c0f2-4f4b-856c-b4678fdd2459
 		summarizeBy: none
 		sourceColumn: SalesKey
 
 	/// Date the order was placed.
 	column OrderDate
 		dataType: dateTime
-		formatString: Long Date
-		lineageTag: ba9fd532-d0f8-49bc-a90a-550eeecfd22a
-		summarizeBy: none
 		sourceColumn: OrderDate
-
-		annotation UnderlyingDateTimeDataType = Date
-
-		annotation SummarizationSetBy = Automatic
 
 	/// Set purchased in the order.
 	column SetKey
 		dataType: int64
 		isHidden
-		lineageTag: a05151ba-9ef0-478a-9181-0d5f3fd8966d
 		summarizeBy: none
 		sourceColumn: SetKey
 
@@ -59,7 +44,6 @@ table Sales
 	column StoreKey
 		dataType: int64
 		isHidden
-		lineageTag: e05b1559-120a-40f6-883a-ffe751e4f122
 		summarizeBy: none
 		sourceColumn: StoreKey
 
@@ -67,7 +51,6 @@ table Sales
 	column PromotionKey
 		dataType: int64
 		isHidden
-		lineageTag: 959db9b5-60ad-4359-a3fa-c0078f82bbd6
 		summarizeBy: none
 		sourceColumn: PromotionKey
 
@@ -75,108 +58,98 @@ table Sales
 	column Quantity
 		dataType: int64
 		isHidden
-		lineageTag: cf588c90-f100-47dd-b71a-93fe83f54904
 		summarizeBy: sum
 		sourceColumn: Quantity
 
 	/// Retail price per set before discount.
 	column UnitPrice
-		dataType: double
+		dataType: decimal
 		isHidden
-		lineageTag: b3771721-410f-44f7-82b2-436aa234d37a
 		summarizeBy: sum
 		sourceColumn: UnitPrice
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	/// Effective discount rate applied to this order.
 	column DiscountPct
-		dataType: double
+		dataType: decimal
 		isHidden
-		lineageTag: f72ecea0-e99f-4539-8954-79fa28d19c2b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DiscountPct
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition Sales = m
 		mode: import
 		source =
-				let
-					Source = #table(
-						type table [SalesKey = Int64.Type,
-					OrderDate = date,
-					SetKey = Int64.Type,
-					StoreKey = Int64.Type,
-					PromotionKey = Int64.Type,
-					Quantity = Int64.Type,
-					UnitPrice = number,
-					DiscountPct = number],
-						{
-					{1, #date(2025, 1, 1), 1, 1, 0, 1, 89.99, 0},
-					{2, #date(2025, 1, 7), 8, 2, 1, 2, 139.99, 0.06},
-					{3, #date(2025, 1, 13), 15, 3, 1, 3, 129.99, 0.06},
-					{4, #date(2025, 1, 20), 4, 4, 1, 4, 79.99, 0.06},
-					{5, #date(2025, 1, 26), 11, 5, 0, 5, 229.99, 0},
-					{6, #date(2025, 2, 1), 18, 6, 1, 1, 64.99, 0.06},
-					{7, #date(2025, 2, 7), 7, 1, 1, 2, 119.99, 0.06},
-					{8, #date(2025, 2, 13), 14, 2, 1, 3, 99.99, 0.06},
-					{9, #date(2025, 2, 19), 3, 3, 0, 4, 149.99, 0},
-					{10, #date(2025, 2, 26), 10, 4, 1, 5, 59.99, 0.06},
-					{11, #date(2025, 3, 4), 17, 5, 1, 1, 119.99, 0.06},
-					{12, #date(2025, 3, 10), 6, 6, 1, 2, 69.99, 0.06},
-					{13, #date(2025, 3, 16), 13, 1, 0, 3, 179.99, 0},
-					{14, #date(2025, 3, 22), 2, 2, 1, 4, 109.99, 0.06},
-					{15, #date(2025, 3, 28), 9, 3, 1, 5, 219.99, 0.06},
-					{16, #date(2025, 4, 4), 16, 4, 2, 1, 129.99, 0.08},
-					{17, #date(2025, 4, 10), 5, 5, 0, 2, 169.99, 0},
-					{18, #date(2025, 4, 16), 12, 6, 2, 3, 49.99, 0.08},
-					{19, #date(2025, 4, 22), 1, 1, 2, 4, 89.99, 0.08},
-					{20, #date(2025, 4, 28), 8, 2, 2, 5, 139.99, 0.08},
-					{21, #date(2025, 5, 4), 15, 3, 0, 1, 129.99, 0},
-					{22, #date(2025, 5, 11), 4, 4, 2, 2, 79.99, 0.08},
-					{23, #date(2025, 5, 17), 11, 5, 2, 3, 229.99, 0.08},
-					{24, #date(2025, 5, 23), 18, 6, 2, 4, 64.99, 0.08},
-					{25, #date(2025, 5, 29), 7, 1, 0, 5, 119.99, 0},
-					{26, #date(2025, 6, 4), 14, 2, 2, 1, 99.99, 0.08},
-					{27, #date(2025, 6, 10), 3, 3, 2, 2, 149.99, 0.08},
-					{28, #date(2025, 6, 17), 10, 4, 2, 3, 59.99, 0.08},
-					{29, #date(2025, 6, 23), 17, 5, 0, 4, 119.99, 0},
-					{30, #date(2025, 6, 29), 6, 6, 2, 5, 69.99, 0.08},
-					{31, #date(2025, 7, 5), 13, 1, 3, 1, 179.99, 0.1},
-					{32, #date(2025, 7, 11), 2, 2, 3, 2, 109.99, 0.1},
-					{33, #date(2025, 7, 17), 9, 3, 0, 3, 219.99, 0},
-					{34, #date(2025, 7, 24), 16, 4, 3, 4, 129.99, 0.1},
-					{35, #date(2025, 7, 30), 5, 5, 3, 5, 169.99, 0.1},
-					{36, #date(2025, 8, 5), 12, 6, 3, 1, 49.99, 0.1},
-					{37, #date(2025, 8, 11), 1, 1, 0, 2, 89.99, 0},
-					{38, #date(2025, 8, 17), 8, 2, 3, 3, 139.99, 0.1},
-					{39, #date(2025, 8, 23), 15, 3, 3, 4, 129.99, 0.1},
-					{40, #date(2025, 8, 30), 4, 4, 3, 5, 79.99, 0.1},
-					{41, #date(2025, 9, 5), 11, 5, 0, 1, 229.99, 0},
-					{42, #date(2025, 9, 11), 18, 6, 3, 2, 64.99, 0.1},
-					{43, #date(2025, 9, 17), 7, 1, 3, 3, 119.99, 0.1},
-					{44, #date(2025, 9, 23), 14, 2, 3, 4, 99.99, 0.1},
-					{45, #date(2025, 9, 29), 3, 3, 0, 5, 149.99, 0},
-					{46, #date(2025, 10, 6), 10, 4, 4, 1, 59.99, 0.12},
-					{47, #date(2025, 10, 12), 17, 5, 4, 2, 119.99, 0.12},
-					{48, #date(2025, 10, 18), 6, 6, 4, 3, 69.99, 0.12},
-					{49, #date(2025, 10, 24), 13, 1, 0, 4, 179.99, 0},
-					{50, #date(2025, 10, 30), 2, 2, 4, 5, 109.99, 0.12},
-					{51, #date(2025, 11, 5), 9, 3, 4, 1, 219.99, 0.12},
-					{52, #date(2025, 11, 12), 16, 4, 4, 2, 129.99, 0.12},
-					{53, #date(2025, 11, 18), 5, 5, 0, 3, 169.99, 0},
-					{54, #date(2025, 11, 24), 12, 6, 4, 4, 49.99, 0.12},
-					{55, #date(2025, 11, 30), 1, 1, 4, 5, 89.99, 0.12},
-					{56, #date(2025, 12, 6), 8, 2, 4, 1, 139.99, 0.12},
-					{57, #date(2025, 12, 12), 15, 3, 0, 2, 129.99, 0},
-					{58, #date(2025, 12, 19), 4, 4, 4, 3, 79.99, 0.12},
-					{59, #date(2025, 12, 25), 11, 5, 4, 4, 229.99, 0.12},
-					{60, #date(2025, 12, 31), 18, 6, 4, 5, 64.99, 0.12}
-						}
-					)
-				in
-						Source
-
+			let
+				Source = #table(
+					type table [SalesKey = Int64.Type,
+				OrderDate = date,
+				SetKey = Int64.Type,
+				StoreKey = Int64.Type,
+				PromotionKey = Int64.Type,
+				Quantity = Int64.Type,
+				UnitPrice = number,
+				DiscountPct = number],
+					{
+				{1, #date(2025, 1, 1), 1, 1, 0, 1, 89.99, 0},
+				{2, #date(2025, 1, 7), 8, 2, 1, 2, 139.99, 0.06},
+				{3, #date(2025, 1, 13), 15, 3, 1, 3, 129.99, 0.06},
+				{4, #date(2025, 1, 20), 4, 4, 1, 4, 79.99, 0.06},
+				{5, #date(2025, 1, 26), 11, 5, 0, 5, 229.99, 0},
+				{6, #date(2025, 2, 1), 18, 6, 1, 1, 64.99, 0.06},
+				{7, #date(2025, 2, 7), 7, 1, 1, 2, 119.99, 0.06},
+				{8, #date(2025, 2, 13), 14, 2, 1, 3, 99.99, 0.06},
+				{9, #date(2025, 2, 19), 3, 3, 0, 4, 149.99, 0},
+				{10, #date(2025, 2, 26), 10, 4, 1, 5, 59.99, 0.06},
+				{11, #date(2025, 3, 4), 17, 5, 1, 1, 119.99, 0.06},
+				{12, #date(2025, 3, 10), 6, 6, 1, 2, 69.99, 0.06},
+				{13, #date(2025, 3, 16), 13, 1, 0, 3, 179.99, 0},
+				{14, #date(2025, 3, 22), 2, 2, 1, 4, 109.99, 0.06},
+				{15, #date(2025, 3, 28), 9, 3, 1, 5, 219.99, 0.06},
+				{16, #date(2025, 4, 4), 16, 4, 2, 1, 129.99, 0.08},
+				{17, #date(2025, 4, 10), 5, 5, 0, 2, 169.99, 0},
+				{18, #date(2025, 4, 16), 12, 6, 2, 3, 49.99, 0.08},
+				{19, #date(2025, 4, 22), 1, 1, 2, 4, 89.99, 0.08},
+				{20, #date(2025, 4, 28), 8, 2, 2, 5, 139.99, 0.08},
+				{21, #date(2025, 5, 4), 15, 3, 0, 1, 129.99, 0},
+				{22, #date(2025, 5, 11), 4, 4, 2, 2, 79.99, 0.08},
+				{23, #date(2025, 5, 17), 11, 5, 2, 3, 229.99, 0.08},
+				{24, #date(2025, 5, 23), 18, 6, 2, 4, 64.99, 0.08},
+				{25, #date(2025, 5, 29), 7, 1, 0, 5, 119.99, 0},
+				{26, #date(2025, 6, 4), 14, 2, 2, 1, 99.99, 0.08},
+				{27, #date(2025, 6, 10), 3, 3, 2, 2, 149.99, 0.08},
+				{28, #date(2025, 6, 17), 10, 4, 2, 3, 59.99, 0.08},
+				{29, #date(2025, 6, 23), 17, 5, 0, 4, 119.99, 0},
+				{30, #date(2025, 6, 29), 6, 6, 2, 5, 69.99, 0.08},
+				{31, #date(2025, 7, 5), 13, 1, 3, 1, 179.99, 0.1},
+				{32, #date(2025, 7, 11), 2, 2, 3, 2, 109.99, 0.1},
+				{33, #date(2025, 7, 17), 9, 3, 0, 3, 219.99, 0},
+				{34, #date(2025, 7, 24), 16, 4, 3, 4, 129.99, 0.1},
+				{35, #date(2025, 7, 30), 5, 5, 3, 5, 169.99, 0.1},
+				{36, #date(2025, 8, 5), 12, 6, 3, 1, 49.99, 0.1},
+				{37, #date(2025, 8, 11), 1, 1, 0, 2, 89.99, 0},
+				{38, #date(2025, 8, 17), 8, 2, 3, 3, 139.99, 0.1},
+				{39, #date(2025, 8, 23), 15, 3, 3, 4, 129.99, 0.1},
+				{40, #date(2025, 8, 30), 4, 4, 3, 5, 79.99, 0.1},
+				{41, #date(2025, 9, 5), 11, 5, 0, 1, 229.99, 0},
+				{42, #date(2025, 9, 11), 18, 6, 3, 2, 64.99, 0.1},
+				{43, #date(2025, 9, 17), 7, 1, 3, 3, 119.99, 0.1},
+				{44, #date(2025, 9, 23), 14, 2, 3, 4, 99.99, 0.1},
+				{45, #date(2025, 9, 29), 3, 3, 0, 5, 149.99, 0},
+				{46, #date(2025, 10, 6), 10, 4, 4, 1, 59.99, 0.12},
+				{47, #date(2025, 10, 12), 17, 5, 4, 2, 119.99, 0.12},
+				{48, #date(2025, 10, 18), 6, 6, 4, 3, 69.99, 0.12},
+				{49, #date(2025, 10, 24), 13, 1, 0, 4, 179.99, 0},
+				{50, #date(2025, 10, 30), 2, 2, 4, 5, 109.99, 0.12},
+				{51, #date(2025, 11, 5), 9, 3, 4, 1, 219.99, 0.12},
+				{52, #date(2025, 11, 12), 16, 4, 4, 2, 129.99, 0.12},
+				{53, #date(2025, 11, 18), 5, 5, 0, 3, 169.99, 0},
+				{54, #date(2025, 11, 24), 12, 6, 4, 4, 49.99, 0.12},
+				{55, #date(2025, 11, 30), 1, 1, 4, 5, 89.99, 0.12},
+				{56, #date(2025, 12, 6), 8, 2, 4, 1, 139.99, 0.12},
+				{57, #date(2025, 12, 12), 15, 3, 0, 2, 129.99, 0},
+				{58, #date(2025, 12, 19), 4, 4, 4, 3, 79.99, 0.12},
+				{59, #date(2025, 12, 25), 11, 5, 4, 4, 229.99, 0.12},
+				{60, #date(2025, 12, 31), 18, 6, 4, 5, 64.99, 0.12}
+					}
+				)
+			in
+					Source

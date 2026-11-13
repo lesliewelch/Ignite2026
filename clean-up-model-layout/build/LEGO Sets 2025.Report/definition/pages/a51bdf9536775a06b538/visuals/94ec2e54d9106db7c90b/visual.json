@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "94ec2e54d9106db7c90b",
   "position": {
     "x": 32,
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Set.SetName",
-              "nativeQueryRef": "SetName",
-              "active": true
+              "nativeQueryRef": "SetName"
             }
           ]
         },
@@ -46,8 +45,7 @@
                 }
               },
               "queryRef": "Set.Total Pieces",
-              "nativeQueryRef": "Total Pieces",
-              "active": true
+              "nativeQueryRef": "Total Pieces"
             }
           ]
         },

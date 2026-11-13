@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "f08c8aa69afe908bb9c8",
   "position": {
     "x": 32,
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Set.SetNumber",
-              "nativeQueryRef": "SetNumber",
-              "active": true
+              "nativeQueryRef": "SetNumber"
             },
             {
               "field": {
@@ -42,23 +41,21 @@
                 }
               },
               "queryRef": "Set.SetName",
-              "nativeQueryRef": "SetName",
-              "active": false
+              "nativeQueryRef": "SetName"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Set"
+                      "Entity": "Designer"
                     }
                   },
                   "Property": "DesignerName"
                 }
               },
-              "queryRef": "Set.DesignerName",
-              "nativeQueryRef": "DesignerName",
-              "active": false
+              "queryRef": "Designer.DesignerName",
+              "nativeQueryRef": "DesignerName"
             },
             {
               "field": {
@@ -72,8 +69,7 @@
                 }
               },
               "queryRef": "Set.Pieces",
-              "nativeQueryRef": "Pieces",
-              "active": false
+              "nativeQueryRef": "Pieces"
             },
             {
               "field": {
@@ -87,8 +83,7 @@
                 }
               },
               "queryRef": "Set.RetailPrice",
-              "nativeQueryRef": "RetailPrice",
-              "active": false
+              "nativeQueryRef": "RetailPrice"
             }
           ]
         },
@@ -125,28 +120,6 @@
           ]
         }
       }
-    },
-    "objects": {
-      "columnHeaders": [
-        {
-          "properties": {
-            "autoSizeColumnWidth": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "columnAdjustment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'growToFit'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "visualContainerObjects": {
       "general": [
@@ -352,6 +325,28 @@
               "expr": {
                 "Literal": {
                   "Value": "'Left'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
                 }
               }
             }
