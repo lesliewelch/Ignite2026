@@ -48,13 +48,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Set"
+                      "Entity": "Designer"
                     }
                   },
                   "Property": "DesignerName"
                 }
               },
-              "queryRef": "Set.DesignerName",
+              "queryRef": "Designer.DesignerName",
               "nativeQueryRef": "DesignerName"
             },
             {

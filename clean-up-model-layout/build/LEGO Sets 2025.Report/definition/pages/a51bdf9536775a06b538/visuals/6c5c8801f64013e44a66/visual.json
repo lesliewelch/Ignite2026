@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Set"
+                      "Entity": "Theme"
                     }
                   },
                   "Property": "ThemeGroup"
                 }
               },
-              "queryRef": "Set.ThemeGroup",
+              "queryRef": "Theme.ThemeGroup",
               "nativeQueryRef": "ThemeGroup"
             }
           ]

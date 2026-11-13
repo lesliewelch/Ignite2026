@@ -42,3 +42,13 @@ relationship 'Inventory Store'
 	fromColumn: Inventory.StoreKey
 	toColumn: Store.StoreKey
 	crossFilteringBehavior: oneDirection
+
+relationship 'Set Theme'
+	fromColumn: 'Set'.ThemeKey
+	toColumn: Theme.ThemeKey
+	crossFilteringBehavior: oneDirection
+
+relationship 'Set Designer'
+	fromColumn: 'Set'.DesignerKey
+	toColumn: Designer.DesignerKey
+	crossFilteringBehavior: oneDirection

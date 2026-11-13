@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "LEGO Sets 2025"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3c4de675-2872-4867-b4e8-3b430410a00c"
+  }
+}
