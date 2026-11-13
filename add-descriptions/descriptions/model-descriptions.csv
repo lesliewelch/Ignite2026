@@ -1,0 +1,77 @@
+table,object_type,object_name,description
+Date,table,Date,"Contiguous daily calendar for 2025, with month and quarter labels for report slicing."
+Date,column,Date,Calendar date.
+Date,column,Year,Calendar year.
+Date,column,Quarter,Calendar quarter label.
+Date,column,QuarterNo,Numeric quarter sort order.
+Date,column,MonthNo,Numeric month sort order.
+Date,column,Month,"Calendar month name, sorted by month number."
+Designer,table,Designer,Six fictional designers and studios used to attribute catalog sets.
+Designer,column,DesignerKey,Unique identifier for a designer.
+Designer,column,DesignerName,Fictional designer name.
+Designer,column,Studio,Fictional design studio.
+Designer,column,Specialty,Primary design specialty.
+Inventory,table,Inventory,Quarter-end inventory snapshot for every modeled set and store; 432 rows at a set-store-quarter grain.
+Inventory,measure,Units On Hand,On-hand units at the latest date in the selected date context.
+Inventory,measure,Low Stock Sets,Distinct sets below their reorder point at the latest selected snapshot.
+Inventory,measure,Inventory Value,Estimated cost value of on-hand units at the latest selected snapshot.
+Inventory,column,InventoryKey,Unique identifier for an inventory snapshot row.
+Inventory,column,SnapshotDate,Quarter-end date represented by the snapshot.
+Inventory,column,SetKey,Set represented by the snapshot.
+Inventory,column,StoreKey,Store represented by the snapshot.
+Inventory,column,OnHandQty,Units available at the snapshot date.
+Inventory,column,ReorderPoint,Stock level below which a set is considered low.
+Inventory,column,UnitCost,Fictional unit cost used to estimate inventory value.
+Promotion,table,Promotion,Four fictional 2025 campaigns plus a no-promotion member used by sales orders.
+Promotion,column,PromotionKey,Unique identifier for a promotion; zero means no promotion.
+Promotion,column,PromotionName,Promotion campaign name.
+Promotion,column,PromotionType,Promotion category.
+Promotion,column,StartDate,First day the promotion is active.
+Promotion,column,EndDate,Last day the promotion is active.
+Reviews,table,Reviews,"One row per fictional builder review, including rating, estimated build time, and reviewer age group."
+Reviews,measure,Avg Rating,Average builder rating on a five-point scale.
+Reviews,measure,Review Count,Number of reviews in the current filter context.
+Reviews,measure,Avg Build Hours,Average estimated build duration in hours.
+Reviews,column,ReviewKey,Unique identifier for a review.
+Reviews,column,ReviewDate,Date the review was submitted.
+Reviews,column,SetKey,Set being reviewed.
+Reviews,column,Rating,Builder rating from one to five.
+Reviews,column,BuildHours,Estimated hours to complete the build.
+Reviews,column,AgeGroup,Age group of the reviewer.
+Sales,table,Sales,"One row per fictional 2025 set order, including its store, promotion, quantity, and realized discount."
+Sales,measure,Revenue,Net sales after discounts for the current filter context.
+Sales,measure,Units Sold,Total sets sold in the current filter context.
+Sales,measure,Orders,Number of fictional order rows in the current filter context.
+Sales,measure,Avg Selling Price,Net revenue per set sold.
+Sales,measure,Discount Amount,Gross value discounted from set sales.
+Sales,column,SalesKey,Unique identifier for a sales order row.
+Sales,column,OrderDate,Date the order was placed.
+Sales,column,SetKey,Set purchased in the order.
+Sales,column,StoreKey,Store or channel fulfilling the order.
+Sales,column,PromotionKey,Promotion applied to the order; zero means no promotion.
+Sales,column,Quantity,Number of sets in this order.
+Sales,column,UnitPrice,Retail price per set before discount.
+Sales,column,DiscountPct,Effective discount rate applied to this order.
+Set,table,Set,"Product catalog at one row per LEGO set, including theme, designer, piece count, and retail price."
+Set,measure,Total Pieces,Total pieces across the sets in the current filter context.
+Set,measure,Price per Piece,Weighted retail price per piece for the selected sets.
+Set,column,SetKey,Unique identifier for a set.
+Set,column,SetNumber,Public-facing set number.
+Set,column,SetName,Fictional set name.
+Set,column,ThemeKey,Theme assigned to the set.
+Set,column,DesignerKey,Primary designer assigned to the set.
+Set,column,Pieces,Number of pieces in the set.
+Set,column,Minifigs,Number of minifigures in the set.
+Set,column,RetailPrice,Fictional retail price in US dollars.
+Set,column,ReleaseYear,Year the fictional set was released.
+Store,table,Store,"Six fictional sales locations representing brand stores, online, and retail partners."
+Store,column,StoreKey,Unique identifier for a store.
+Store,column,StoreName,Store or channel display name.
+Store,column,Channel,"Brand Store, Online, or Retail Partner."
+Store,column,City,City for the store location.
+Store,column,Country,Country for the store location.
+Store,column,Region,Sales region for the store.
+Theme,table,Theme,Six LEGO themes grouped as licensed or in-house properties.
+Theme,column,ThemeKey,Unique identifier for a theme.
+Theme,column,Theme,Theme name.
+Theme,column,ThemeGroup,Licensed or in-house theme grouping.

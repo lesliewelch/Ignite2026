@@ -1,0 +1,40 @@
+table Designer
+
+	column DesignerKey
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: DesignerKey
+
+	column DesignerName
+		dataType: string
+		sourceColumn: DesignerName
+
+	column Studio
+		dataType: string
+		sourceColumn: Studio
+
+	column Specialty
+		dataType: string
+		sourceColumn: Specialty
+
+	partition Designer = m
+		mode: import
+		source =
+			let
+				Source = #table(
+					type table [DesignerKey = Int64.Type,
+				DesignerName = text,
+				Studio = text,
+				Specialty = text],
+					{
+				{1, "Avery Stone", "North Brick Studio", "Vehicles"},
+				{2, "Morgan Reed", "North Brick Studio", "Fantasy"},
+				{3, "Jamie Park", "Bright Build Lab", "Architecture"},
+				{4, "Riley Chen", "Bright Build Lab", "Mechanisms"},
+				{5, "Casey Brooks", "Independent", "Collectibles"},
+				{6, "Taylor Quinn", "Independent", "Play features"}
+					}
+				)
+			in
+					Source
