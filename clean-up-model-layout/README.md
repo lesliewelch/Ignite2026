@@ -42,6 +42,17 @@ node .\tools\build-report.mjs "C:\temp\lego-build"
 
 Each run replaces only those three generated outputs in the selected output directory. `build/` is a conventional build-artifact directory; these PBIP outputs are committed so a clone includes the ready-to-open demo, while remaining reproducible from source. Keep model, data, theme, and page changes in `report-spec.json`; do not hand-edit generated PBIR or TMDL files as the source of truth.
 
+## Model View Layout
+
+After rebuilding the PBIP, regenerate its Power BI model-view diagrams with:
+
+```powershell
+npm run build
+node .\tools\generate-diagramLayout.mjs
+```
+
+The layout generator reads the current semantic-model TMDL and report page fields, then writes `build/LEGO Sets 2025.SemanticModel/diagramLayout.json`. Run it after `npm run build`, because the builder recreates the semantic-model folder.
+
 ## Open in Power BI Desktop
 
 Install Power BI Desktop, then open the generated project with:
