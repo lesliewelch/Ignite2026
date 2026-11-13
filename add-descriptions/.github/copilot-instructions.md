@@ -1,11 +1,11 @@
 # Copilot instructions for this folder
 
-This folder contains a Power BI Project (PBIP). The semantic model is stored as TMDL under `build/LEGO Sets 2025.SemanticModel/definition/`.
+This folder contains a Power BI Project (PBIP). The semantic model is stored as TMDL in a `*.SemanticModel/definition/` folder. Find it by searching the workspace for that pattern.
 
 ## Source of descriptions
 - Business descriptions live in `descriptions/model-descriptions.csv`.
 - Use the description text exactly as written in the CSV. Do not rewrite, shorten, or improve it.
-- Never invent a description. If an object has no row in the CSV, leave it alone and report it.
+- Never invent a description. If an object has no row in the CSV, or the row's description is blank, leave the object alone and report it.
 
 ## Descriptions in TMDL
 - Descriptions are written as `///` lines directly above the object they describe (table, column, measure).
@@ -17,6 +17,6 @@ Example:
 
 ```
 /// Net sales after discounts for the current filter context.
-measure 'Revenue' = SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] * (1 - Sales[DiscountPct]))
+measure Revenue = SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] * (1 - Sales[DiscountPct]))
     formatString: $#,##0.00
 ```
