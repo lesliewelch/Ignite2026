@@ -1,16 +1,31 @@
 model Model
 	culture: en-US
 	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
 	sourceQueryCulture: en-US
-	discourageImplicitMeasures: true
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Sales","Reviews","Inventory","Set","Theme","Store","Designer","Promotion","Date"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
 
 ref table Sales
 ref table Reviews
 ref table Inventory
-ref table 'Set'
+ref table Set
 ref table Theme
 ref table Store
 ref table Designer
 ref table Promotion
 ref table Date
+ref table DateTableTemplate_b9f904ef-ef58-4fc7-a0b3-1a7900061e0c
+ref table LocalDateTable_c397e4e7-d63e-4129-825d-33765bcfa9ee
+ref table LocalDateTable_7f08405d-b485-4fc2-a8be-1f73c44e126c
+ref table LocalDateTable_a835d0ba-43d4-4911-9b86-721678e256f0
+
 ref cultureInfo en-US
+
